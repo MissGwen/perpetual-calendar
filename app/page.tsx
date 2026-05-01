@@ -22,7 +22,7 @@ export default function Home() {
         
         {/* Header / Intro for Mobile (hidden on desktop) */}
         <div className="lg:hidden text-center mb-4 text-foreground">
-          <h1 className="text-3xl font-bold mb-2 tracking-wide">万年历</h1>
+          <h1 className="text-3xl font-bold mb-2 tracking-wide">萬年历</h1>
           <p className="text-foreground/80 text-sm">记录时间的流转与美好</p>
         </div>
 
@@ -32,7 +32,7 @@ export default function Home() {
             <div className="hidden lg:block mb-8 px-4">
               <h1 className="text-3xl font-bold text-primary mb-2 flex items-center gap-3">
                 <span className="w-2 h-8 bg-gradient-to-b from-primary to-primary-light rounded-full inline-block"></span>
-                万年历
+                萬年历
               </h1>
               <p className="text-gray-500 text-sm">选择日期以查看详细信息，包括农历、节假日和节气等。</p>
             </div>

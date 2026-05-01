@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "万年历",
-  description: "现代化、美观、清晰的万年历应用",
+  title: "萬年历",
+  description: "现代化、美观、清晰的萬年历应用",
 };
 
 export default function RootLayout({

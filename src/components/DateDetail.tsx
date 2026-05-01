@@ -23,13 +23,14 @@ export function DateDetail({ date }: DateDetailProps) {
           </h2>
           <p className="text-sm text-gray-500 mt-1">
             星期{["日", "一", "二", "三", "四", "五", "六"][date.weekday]}
+            <span className="ml-2">农历：{date.lunarMonthName}{date.lunarDayName}</span>
             {date.isToday && <span className="ml-2 text-primary font-medium bg-red-50 px-2 py-0.5 rounded-md">今天</span>}
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-xl flex items-start gap-3">
+      {/* <div className="grid grid-cols-2 gap-4"> */}
+        {/* <div className="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-xl flex items-start gap-3">
           <Moon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-medium text-red-800 mb-1">农历</p>
@@ -37,21 +38,21 @@ export function DateDetail({ date }: DateDetailProps) {
               {date.lunarMonthName}{date.lunarDayName}
             </p>
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-xl flex items-start gap-3">
           <Star className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
           <div className="w-full">
             <p className="text-sm font-medium text-amber-800 mb-1">干支</p>
-            <p className="text-sm font-semibold text-amber-900">
+            <p className="text-lg font-semibold text-amber-900">
               {date.ganZhiYear}年 [{date.zodiac}年]
             </p>
-            <p className="text-xs text-amber-700 mt-1 flex items-center justify-between">
+            <p className="text-sm text-amber-700 mt-1 flex items-center justify-between">
               <span>{date.ganZhiMonth}月 {date.ganZhiDay}日</span>
             </p>
           </div>
         </div>
-      </div>
+      {/* </div> */}
 
       {/* 五行气场模块 */}
       <div className="bg-red-50/50 rounded-xl p-4 border border-red-100">
