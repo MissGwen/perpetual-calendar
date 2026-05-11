@@ -1,8 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { CalendarDate } from "../types/calendar";
-import { CalendarDays, Moon, Sparkles, Star } from "lucide-react";
+import { CalendarDate } from '../types/calendar';
+import { CalendarDays, Sparkles, Star, BookOpen } from 'lucide-react';
+import {
+  WU_XING_EXPLANATION,
+  NA_YIN_EXPLANATION,
+  WANG_SHUAI_EXPLANATION,
+  DI_SHI_EXPLANATION,
+} from '../utils/explanations';
 
 interface DateDetailProps {
   date: CalendarDate | null;
@@ -22,36 +27,34 @@ export function DateDetail({ date }: DateDetailProps) {
             {date.year}年{date.month + 1}月{date.day}日
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            星期{["日", "一", "二", "三", "四", "五", "六"][date.weekday]}
-            <span className="ml-2">农历：{date.lunarMonthName}{date.lunarDayName}</span>
-            {date.isToday && <span className="ml-2 text-primary font-medium bg-red-50 px-2 py-0.5 rounded-md">今天</span>}
+            星期{['日', '一', '二', '三', '四', '五', '六'][date.weekday]}
+            <span className="ml-2">
+              农历：{date.lunarMonthName}
+              {date.lunarDayName}
+            </span>
+            {date.isToday && (
+              <span className="ml-2 text-primary font-medium bg-red-50 px-2 py-0.5 rounded-md">
+                今天
+              </span>
+            )}
           </p>
         </div>
       </div>
 
-      {/* <div className="grid grid-cols-2 gap-4"> */}
-        {/* <div className="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-xl flex items-start gap-3">
-          <Moon className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-          <div>
-            <p className="text-sm font-medium text-red-800 mb-1">农历</p>
-            <p className="text-lg font-bold text-red-900">
-              {date.lunarMonthName}{date.lunarDayName}
-            </p>
-          </div>
-        </div> */}
-
-        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-xl flex items-start gap-3">
-          <Star className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
-          <div className="w-full">
-            <p className="text-sm font-medium text-amber-800 mb-1">干支</p>
-            <p className="text-lg font-semibold text-amber-900">
-              {date.ganZhiYear}年 [{date.zodiac}年]
-            </p>
-            <p className="text-sm text-amber-700 mt-1 flex items-center justify-between">
-              <span>{date.ganZhiMonth}月 {date.ganZhiDay}日</span>
-            </p>
-          </div>
+      <div className="bg-linear-to-br from-amber-50 to-yellow-50 p-4 rounded-xl flex items-start gap-3">
+        <Star className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+        <div className="w-full">
+          <p className="text-sm font-medium text-amber-800 mb-1">干支</p>
+          <p className="text-lg font-semibold text-amber-900">
+            {date.ganZhiYear}年 [{date.zodiac}年]
+          </p>
+          <p className="text-sm text-amber-700 mt-1 flex items-center justify-between">
+            <span>
+              {date.ganZhiMonth}月 {date.ganZhiDay}日
+            </span>
+          </p>
         </div>
+      </div>
       {/* </div> */}
 
       {/* 五行气场模块 */}
@@ -60,15 +63,55 @@ export function DateDetail({ date }: DateDetailProps) {
           <div className="flex items-center gap-2">
             <span className="font-medium text-red-800">五行</span>
             <span className="font-bold text-red-900">
-              {date.dayWuXing} <span className="text-xs font-normal text-red-700 ml-1">({date.dayNaYin})</span>
+              {date.dayWuXing}{' '}
+              <span className="text-xs font-normal text-red-700 ml-1">({date.dayNaYin})</span>
             </span>
           </div>
-          <div className="flex items-center gap-2 border-l border-red-200 pl-4">
+          <div className="flex items-center gap-2 pl-4">
             <span className="font-medium text-red-800">状态</span>
             <span className="font-bold text-[#C8102E]">
-              {date.wangShuaiMapped} <span className="text-xs font-normal text-red-700 ml-1">· {date.diShiMapped}</span>
+              {date.wangShuai}{' '}
+              <span className="text-xs font-normal text-red-700 ml-1">· {date.diShi}</span>
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* 气场解析模块 */}
+      <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
+        <div className="flex items-center gap-2 mb-3">
+          <BookOpen className="w-4 h-4 text-blue-600" />
+          <h3 className="text-sm font-medium text-blue-800">气场解析</h3>
+        </div>
+        <div className="flex flex-col gap-2 text-sm text-blue-900/80">
+          {date.dayWuXing &&
+            Array.from(new Set(date.dayWuXing.split(''))).map(
+              (char) =>
+                WU_XING_EXPLANATION[char] && (
+                  <p key={`wuxing-${char}`}>
+                    <span className="font-semibold text-blue-900 mr-1">[{char}]</span>{' '}
+                    {WU_XING_EXPLANATION[char]}
+                  </p>
+                ),
+            )}
+          {date.dayNaYin && NA_YIN_EXPLANATION[date.dayNaYin] && (
+            <p>
+              <span className="font-semibold text-blue-900 mr-1">[{date.dayNaYin}]</span>{' '}
+              {NA_YIN_EXPLANATION[date.dayNaYin]}
+            </p>
+          )}
+          {WANG_SHUAI_EXPLANATION[date.wangShuai] && (
+            <p>
+              <span className="font-semibold text-blue-900 mr-1">[{date.wangShuai}]</span>{' '}
+              {WANG_SHUAI_EXPLANATION[date.wangShuai]}
+            </p>
+          )}
+          {DI_SHI_EXPLANATION[date.diShi] && (
+            <p>
+              <span className="font-semibold text-blue-900 mr-1">[{date.diShi}]</span>{' '}
+              {DI_SHI_EXPLANATION[date.diShi]}
+            </p>
+          )}
         </div>
       </div>
 
@@ -83,11 +126,11 @@ export function DateDetail({ date }: DateDetailProps) {
               <span
                 key={`${holiday.name}-${idx}`}
                 className={`px-3 py-1 text-xs font-medium rounded-full ${
-                  holiday.type === 'public' 
-                    ? 'bg-red-100 text-primary border border-red-200' 
+                  holiday.type === 'public'
+                    ? 'bg-red-100 text-primary border border-red-200'
                     : holiday.type === 'solar_term'
-                    ? 'bg-yellow-100 text-yellow-700 border border-yellow-200'
-                    : 'bg-orange-100 text-orange-700 border border-orange-200'
+                      ? 'bg-yellow-100 text-yellow-700 border border-yellow-200'
+                      : 'bg-orange-100 text-orange-700 border border-orange-200'
                 }`}
               >
                 {holiday.name}

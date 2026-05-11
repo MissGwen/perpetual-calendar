@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+public/
+*.config.mjs
+*.config.js
+pnpm-lock.yaml

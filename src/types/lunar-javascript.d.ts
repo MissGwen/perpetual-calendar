@@ -31,17 +31,17 @@ declare module 'lunar-javascript' {
     getMonth(): string;
     getDay(): string;
     getTime(): string;
-    
+
     getYearWuXing(): string;
     getMonthWuXing(): string;
     getDayWuXing(): string;
     getTimeWuXing(): string;
-    
+
     getYearDiShi(): string;
     getMonthDiShi(): string;
     getDayDiShi(): string;
     getTimeDiShi(): string;
-    
+
     getDayNaYin(): string;
 
     getYearGan(): string;
@@ -56,6 +56,10 @@ declare module 'lunar-javascript' {
   }
 
   export class HolidayUtil {
-    static getHoliday(year: number, month: number, day: number): { getName(): string; isWork(): boolean } | null;
+    static getHoliday(
+      year: number,
+      month: number,
+      day: number,
+    ): { getName(): string; isWork(): boolean } | null;
   }
 }

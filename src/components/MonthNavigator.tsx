@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from "lucide-react";
-import { cn } from "../utils/cn";
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '../utils/cn';
 
 interface MonthNavigatorProps {
   currentDate: Date;
@@ -12,12 +12,12 @@ interface MonthNavigatorProps {
   onTodayClick: () => void;
 }
 
-export function MonthNavigator({ 
-  currentDate, 
-  onPrevMonth, 
-  onNextMonth, 
+export function MonthNavigator({
+  currentDate,
+  onPrevMonth,
+  onNextMonth,
   onDateSelect,
-  onTodayClick
+  onTodayClick,
 }: MonthNavigatorProps) {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
 
@@ -44,8 +44,8 @@ export function MonthNavigator({
         </button>
 
         <div className="flex items-center gap-2 group relative">
-          <button 
-            className="text-xl font-semibold text-gray-800 min-w-[120px] text-center hover:bg-gray-50 px-3 py-1 rounded-lg transition-colors flex items-center justify-center gap-2"
+          <button
+            className="text-xl font-semibold text-gray-800 min-w-30 text-center hover:bg-gray-50 px-3 py-1 rounded-lg transition-colors flex items-center justify-center gap-2"
             onClick={() => setIsPickerOpen(!isPickerOpen)}
           >
             {year}年 {month + 1}月
@@ -54,25 +54,29 @@ export function MonthNavigator({
 
           {isPickerOpen && (
             <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 p-4 z-50 flex gap-2 w-max animate-in fade-in slide-in-from-top-2">
-              <select 
-                value={year} 
+              <select
+                value={year}
                 onChange={handleYearChange}
                 className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white cursor-pointer"
               >
-                {Array.from({ length: 101 }, (_, i) => year - 50 + i).map(y => (
-                  <option key={y} value={y}>{y}年</option>
+                {Array.from({ length: 101 }, (_, i) => year - 50 + i).map((y) => (
+                  <option key={y} value={y}>
+                    {y}年
+                  </option>
                 ))}
               </select>
-              <select 
-                value={month} 
+              <select
+                value={month}
                 onChange={handleMonthChange}
                 className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white cursor-pointer"
               >
-                {Array.from({ length: 12 }, (_, i) => i).map(m => (
-                  <option key={m} value={m}>{m + 1}月</option>
+                {Array.from({ length: 12 }, (_, i) => i).map((m) => (
+                  <option key={m} value={m}>
+                    {m + 1}月
+                  </option>
                 ))}
               </select>
-              <button 
+              <button
                 onClick={() => setIsPickerOpen(false)}
                 className="px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors text-sm font-medium"
               >
@@ -94,8 +98,8 @@ export function MonthNavigator({
       <button
         onClick={onTodayClick}
         className={cn(
-          "px-4 py-2 text-sm font-medium rounded-full transition-all",
-          "bg-red-50 text-primary hover:bg-red-100 hover:shadow-sm"
+          'px-4 py-2 text-sm font-medium rounded-full transition-all',
+          'bg-red-50 text-primary hover:bg-red-100 hover:shadow-sm',
         )}
       >
         回到今天
