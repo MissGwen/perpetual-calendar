@@ -5,6 +5,11 @@ import { Calendar } from '@/src/components/Calendar';
 import { DateDetail } from '@/src/components/DateDetail';
 import { CalendarDate } from '@/src/types/calendar';
 import { getCalendarDate } from '@/src/utils/dateUtils';
+import localFont from 'next/font/local';
+
+const customFont = localFont({
+  src: './font/customFont.ttf',
+});
 
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
@@ -21,7 +26,9 @@ export default function Home() {
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Header / Intro for Mobile (hidden on desktop) */}
         <div className="lg:hidden text-center text-foreground">
-          <h1 className="text-3xl font-bold my-2 tracking-wide text-primary">萬年历</h1>
+          <h1 className={`text-4xl my-2 tracking-wide text-primary ${customFont.className}`}>
+            万年历
+          </h1>
           <p className="text-foreground/80 text-sm">我们大部分时间都在害怕失败与拒绝</p>
           <p className="text-foreground/80 text-sm">但后悔或许才是最该害怕的事</p>
         </div>
@@ -30,16 +37,22 @@ export default function Home() {
         <div className="lg:col-span-2 relative z-10">
           <div className="bg-white/95 backdrop-blur-xl rounded-4xl shadow-2xl shadow-primary/10 p-2 md:p-6 border border-white/40">
             <div className="hidden lg:block mb-8 px-4">
-              <h1 className="text-3xl font-bold text-primary mb-2 flex items-center gap-3">
+              <h1
+                className={`text-4xl text-primary mb-2 flex items-center gap-3 ${customFont.className}`}
+              >
                 <span className="w-2 h-8 bg-linear-to-b from-primary to-primary-light rounded-full inline-block"></span>
-                萬年历
+                万年历
               </h1>
               <p className="text-gray-500 text-sm">
                 选择日期以查看详细信息，包括农历、节假日和节气等。
               </p>
             </div>
 
-            <Calendar onDateSelect={setSelectedDate} selectedDate={selectedDate} />
+            <Calendar
+              onDateSelect={setSelectedDate}
+              selectedDate={selectedDate}
+              fontClassName={customFont.className}
+            />
           </div>
         </div>
 

@@ -24,9 +24,49 @@ export function getWangXiang(dayWuXing: string, monthWuXing: string): string {
   return relationship[monthWuXing]?.[dayWuXing] || '未知';
 }
 
+export function getCurrentShiChen(date: Date) {
+  const hour = date.getHours();
+
+  if (hour === 23 || hour === 0) {
+    return { shichen: '子时', range: '23:00 - 01:00', wuxing: '水' };
+  }
+  if (hour === 1 || hour === 2) {
+    return { shichen: '丑时', range: '01:00 - 03:00', wuxing: '土' };
+  }
+  if (hour === 3 || hour === 4) {
+    return { shichen: '寅时', range: '03:00 - 05:00', wuxing: '木' };
+  }
+  if (hour === 5 || hour === 6) {
+    return { shichen: '卯时', range: '05:00 - 07:00', wuxing: '木' };
+  }
+  if (hour === 7 || hour === 8) {
+    return { shichen: '辰时', range: '07:00 - 09:00', wuxing: '土' };
+  }
+  if (hour === 9 || hour === 10) {
+    return { shichen: '巳时', range: '09:00 - 11:00', wuxing: '火' };
+  }
+  if (hour === 11 || hour === 12) {
+    return { shichen: '午时', range: '11:00 - 13:00', wuxing: '火' };
+  }
+  if (hour === 13 || hour === 14) {
+    return { shichen: '未时', range: '13:00 - 15:00', wuxing: '土' };
+  }
+  if (hour === 15 || hour === 16) {
+    return { shichen: '申时', range: '15:00 - 17:00', wuxing: '金' };
+  }
+  if (hour === 17 || hour === 18) {
+    return { shichen: '酉时', range: '17:00 - 19:00', wuxing: '金' };
+  }
+  if (hour === 19 || hour === 20) {
+    return { shichen: '戌时', range: '19:00 - 21:00', wuxing: '土' };
+  }
+  return { shichen: '亥时', range: '21:00 - 23:00', wuxing: '水' };
+}
+
 export function getCalendarDate(date: Date, currentMonthDate: Date): CalendarDate {
   const solar = Solar.fromDate(date);
   const lunar = Lunar.fromDate(date);
+  const { shichen, wuxing: shichenWuxing } = getCurrentShiChen(date);
 
   const holidays: Holiday[] = [];
 
@@ -84,6 +124,8 @@ export function getCalendarDate(date: Date, currentMonthDate: Date): CalendarDat
     dayNaYin: eightChar.getDayNaYin(),
     wangShuai,
     diShi,
+    shichen,
+    shichenWuxing,
   };
 }
 

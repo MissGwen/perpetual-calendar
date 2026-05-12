@@ -27,6 +27,8 @@ export interface CalendarDate {
   dayNaYin: string; // 日柱纳音
   wangShuai: string; // 五行旺衰（旺相休囚死）
   diShi: string; // 地势（长生十二神）
+  shichen: string; // 当前时辰
+  shichenWuxing: string; // 时辰五行
 }
 
 export interface MonthData {

@@ -11,9 +11,10 @@ const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 interface CalendarProps {
   onDateSelect: (date: CalendarDate) => void;
   selectedDate: CalendarDate | null;
+  fontClassName?: string;
 }
 
-export function Calendar({ onDateSelect, selectedDate }: CalendarProps) {
+export function Calendar({ onDateSelect, selectedDate, fontClassName }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const monthData = useMemo(() => {
@@ -46,11 +47,10 @@ export function Calendar({ onDateSelect, selectedDate }: CalendarProps) {
       {/* 水印背景 */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0">
         <span
-          className="text-[#D4AF37] opacity-10 select-none"
+          className={`text-[#D4AF37] opacity-10 select-none ${fontClassName}`}
           style={{
-            fontSize: '240px',
+            fontSize: '300px',
             lineHeight: 1,
-            fontFamily: '"KaiTi", "STKaiti", "SimSun", serif',
           }}
         >
           {watermarkZodiac}

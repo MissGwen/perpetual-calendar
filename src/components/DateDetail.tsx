@@ -77,20 +77,24 @@ export function DateDetail({ date }: DateDetailProps) {
         </div>
 
         <div className="border-t border-amber-200/50 bg-white/40 px-4 py-3">
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center gap-2">
+          <div className="flex justify-between items-center text-sm flex-wrap">
+            <div className="flex items-center gap-2 w-1/2">
               <span className="font-medium text-red-800">五行</span>
               <span className="font-bold text-red-900">
                 {date.dayWuXing}{' '}
                 <span className="text-xs font-normal text-red-700 ml-1">({date.dayNaYin})</span>
               </span>
             </div>
-            <div className="flex items-center gap-2 pl-4">
+            <div className="flex items-center gap-2 w-1/2">
               <span className="font-medium text-red-800">状态</span>
               <span className="font-bold text-[#C8102E]">
                 {date.wangShuai}{' '}
                 <span className="text-xs font-normal text-red-700 ml-1">· {date.diShi}</span>
               </span>
+            </div>
+            <div className="flex items-center gap-2 w-1/2">
+              <span className="font-medium text-red-800">{date.shichen}</span>
+              <span className="font-bold text-red-900">{date.shichenWuxing}</span>
             </div>
           </div>
         </div>
