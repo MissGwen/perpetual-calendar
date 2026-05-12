@@ -66,7 +66,7 @@ export function Calendar({ onDateSelect, selectedDate }: CalendarProps) {
           onTodayClick={handleTodayClick}
         />
 
-        <div className="grid grid-cols-7 gap-1 p-4 bg-red-50/30 border-b border-gray-50">
+        <div className="grid grid-cols-7 gap-1 p-1 bg-red-50/30 border-b border-gray-50">
           {WEEKDAYS.map((day, index) => (
             <div
               key={day}
@@ -79,7 +79,7 @@ export function Calendar({ onDateSelect, selectedDate }: CalendarProps) {
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-1 p-2 md:p-4 min-h-75">
+        <div className="grid grid-cols-7 gap-1 p-1 md:p-4 min-h-75">
           {monthData.dates.map((date, index) => (
             <DateCell
               key={`${date.year}-${date.month}-${date.day}-${index}`}
