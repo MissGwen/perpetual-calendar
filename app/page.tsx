@@ -13,12 +13,17 @@ const customFont = localFont({
 
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Initialize with today's date
+  // Initialize with today's date and set mounted state
   useEffect(() => {
-    const today = new Date();
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSelectedDate(getCalendarDate(today, today));
+    const timer = setTimeout(() => {
+      setIsMounted(true);
+      const today = new Date();
+      setSelectedDate(getCalendarDate(today, today));
+    }, 0);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -35,7 +40,7 @@ export default function Home() {
 
         {/* Calendar Section */}
         <div className="lg:col-span-2 relative z-10">
-          <div className="bg-white/95 backdrop-blur-xl rounded-4xl shadow-2xl shadow-primary/10 p-2 md:p-6 border border-white/40">
+          <div className="bg-white/95 backdrop-blur-xl rounded-4xl shadow-2xl shadow-primary/10 p-2 md:p-6 border border-white/40 min-h-125">
             <div className="hidden lg:block mb-8 px-4">
               <h1
                 className={`text-4xl text-primary mb-2 flex items-center gap-3 ${customFont.className}`}
@@ -48,17 +53,23 @@ export default function Home() {
               </p>
             </div>
 
-            <Calendar
-              onDateSelect={setSelectedDate}
-              selectedDate={selectedDate}
-              fontClassName={customFont.className}
-            />
+            {isMounted ? (
+              <Calendar
+                onDateSelect={setSelectedDate}
+                selectedDate={selectedDate}
+                fontClassName={customFont.className}
+              />
+            ) : (
+              <div className="w-full h-96 flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Detail Section */}
         <div className="lg:col-span-1 relative z-20 flex flex-col gap-4 lg:mt-0">
-          <DateDetail date={selectedDate} />
+          {isMounted && <DateDetail date={selectedDate} />}
 
           {/* Decorative Card */}
           <div className="bg-linear-to-br from-[#8B0000] to-[#C8102E] rounded-2xl p-6 text-white shadow-xl hidden lg:block border border-[#D4AF37]/30">

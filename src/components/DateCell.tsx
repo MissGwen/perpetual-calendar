@@ -51,7 +51,7 @@ export function DateCell({ date, isSelected, onClick }: DateCellProps) {
       </span>
       <span
         className={cn(
-          'text-[10px] md:text-xs text-center whitespace-normal leading-[1.1] md:leading-tight break-words max-w-full px-0.5',
+          'text-[10px] md:text-xs text-center whitespace-normal leading-[1.1] md:leading-tight wrap-break-word max-w-full px-0.5',
           isToday ? 'text-[#F3E5AB]/90' : isHolidayOrTerm ? 'text-primary' : 'text-gray-500',
           isSelected && !isToday && !isHolidayOrTerm && 'text-primary',
         )}
