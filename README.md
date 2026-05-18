@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Perpetual Calendar
 
-## Getting Started
+A modern, responsive perpetual calendar web application built with **Next.js 16** and **React 19**. It not only provides basic Gregorian calendar viewing capabilities but also deeply integrates rich traditional Chinese calendar features, including the Lunar calendar, Sexagenary cycle (Stem-Branch), Chinese Zodiac, Five Elements (Wu Xing), public holidays, and solar terms.
 
-First, run the development server:
+## ✨ Key Features
+
+- 📅 **Modern UI Design**: Features a glassmorphism style coupled with smooth Tailwind CSS animations, providing an ultimate visual experience.
+- 🌙 **Professional Lunar Conversion**: Built-in `lunar-javascript` library for highly accurate Lunar calendar, Stem-Branch (GanZhi), and Zodiac data.
+- 🔮 **Daily Aura & Numerology**: Detailed analysis of daily Five Elements (including Na Yin), state of vigor and decline (Wang Shuai), and terrain, along with easy-to-understand "Aura Analysis".
+- 🎉 **Solar Terms & Holidays**: Smartly marks national public holidays and the 24 solar terms, with optimized layouts for both mobile and desktop views.
+- 📱 **Fully Responsive**: Carefully adapted for both mobile and desktop. Features an exclusive compact layout on mobile to solve screen space constraints, while providing a spacious panoramic view on PC.
+- ⚡ **Extreme Performance**: Utilizes Next.js App Router architecture and React Server Components (RSC) best practices, completely resolving Hydration mismatch issues.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router) / [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (with `clsx` & `tailwind-merge` for dynamic classes)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Core Calendar Algorithm**: [lunar-javascript](https://github.com/6tail/lunar-javascript)
+- **Code Quality**: ESLint + Prettier
+
+## 🚀 Quick Start
+
+### 1. Clone the project and install dependencies
+
+It is recommended to use `pnpm` or `npm` to install dependencies:
+
+```bash
+# Install dependencies
+npm install
+# OR
+pnpm install
+```
+
+### 2. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
+# OR
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+After starting, visit [http://localhost:3000](http://localhost:3000) in your browser to preview.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Build and Production Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## 📂 Core Directory Structure
 
-To learn more about Next.js, take a look at the following resources:
+```text
+.
+├── app/                  # Next.js App Router routes and main pages
+│   ├── font/             # Custom local fonts
+│   ├── globals.css       # Global styles
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Home page main view
+├── src/
+│   ├── components/       # UI Components
+│   │   ├── Calendar.tsx      # Main calendar component
+│   │   ├── DateCell.tsx      # Calendar grid cell
+│   │   ├── DateDetail.tsx    # Sidebar details (Aura, Solar terms, etc.)
+│   │   └── MonthNavigator.tsx# Month navigation bar
+│   ├── types/            # TypeScript type definitions
+│   └── utils/            # Utility functions
+│       ├── cn.ts             # Tailwind class merge utility
+│       ├── dateUtils.ts      # Core logic for date and Lunar calculations
+│       └── explanations.ts   # Configuration for Five Elements/Aura copy
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🤝 Contributing & Feedback
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Issues and Pull Requests are welcome to help improve this project!
 
-## Deploy on Vercel
+## 📄 License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open-sourced under the MIT License.
