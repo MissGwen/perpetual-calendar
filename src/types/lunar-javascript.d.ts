@@ -21,6 +21,14 @@ declare module 'lunar-javascript' {
      * 获取八字
      */
     getEightChar(): EightChar;
+    /**
+     * 获取宜做的事
+     */
+    getDayYi(): string[];
+    /**
+     * 获取忌讳做的事
+     */
+    getDayJi(): string[];
   }
 
   /**

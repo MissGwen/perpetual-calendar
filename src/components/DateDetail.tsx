@@ -92,27 +92,86 @@ export function DateDetail({ date }: DateDetailProps) {
                 <span className="text-xs font-normal text-red-700 ml-1">· {date.diShi}</span>
               </span>
             </div>
-            <div className="flex items-center gap-2 w-1/2">
+            {/* <div className="flex items-center gap-2 w-1/2">
               <span className="font-medium text-red-800">{date.shichen}</span>
               <span className="font-bold text-red-900">{date.shichenWuxing}</span>
-            </div>
+            </div> */}
+          </div>
+        </div>
+      </div>
+
+      {/* 宜忌模块 (老黄历通书风) */}
+      <div className="relative overflow-hidden rounded-xl border border-[#D4AF37]/30 bg-linear-to-b from-[#FDFAF3] to-[#F7EFDD] shadow-sm">
+        {/* 顶部值日信息条 */}
+        <div className="flex items-center justify-between gap-2 px-4 py-2.5 bg-linear-to-r from-[#8B0000] to-[#C8102E]">
+          <div className="flex items-center gap-2.5 font-serif text-[#F3E5AB]">
+            <span className="text-base font-bold tracking-wider">{date.dayValue}日</span>
+            <span className="w-1 h-1 rounded-full bg-[#F3E5AB]/50"></span>
+            <span className="text-sm">
+              <span className="mr-1 text-xs text-[#F3E5AB]/60">值神</span>
+              {date.dayGod}
+            </span>
+          </div>
+          {date.isYellowRoad ? (
+            <span className="flex shrink-0 items-center gap-1 rounded-full bg-linear-to-r from-[#F3E5AB] to-[#D4AF37] px-2.5 py-1 text-xs font-serif font-bold text-[#7A1010] shadow-sm">
+              <Star className="w-3 h-3 fill-current" />
+              黄道吉日
+            </span>
+          ) : (
+            <span className="shrink-0 rounded-full border border-[#F3E5AB]/30 px-2.5 py-1 text-xs font-serif font-medium text-[#F3E5AB]/70">
+              黑道日
+            </span>
+          )}
+        </div>
+
+        {/* 宜 */}
+        <div className="flex justify-between gap-3 px-2 py-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-r from-[#F3E5AB] to-[#D4AF37] font-serif text-xl font-bold text-[#7A1010] shadow-md ring-1 ring-inset ring-[#F3E5AB]/25">
+            宜
+          </div>
+          <div className="flex w-4/5 flex-wrap gap-2">
+            {date.suitable.map((item, idx) => (
+              <span
+                key={`suitable-${item}-${idx}`}
+                className="rounded-md border border-[#D4AF37]/30 bg-[#D4AF37]/20 px-3 py-1 text-sm font-medium text-[#7A1010]"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* 忌 */}
+        <div className="flex justify-between gap-3 px-2 py-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-br from-[#C8102E] to-[#8B0000] font-serif text-xl font-bold text-[#F3E5AB] shadow-md ring-1 ring-inset ring-[#F3E5AB]/25">
+            忌
+          </div>
+          <div className="flex w-4/5 flex-wrap gap-2">
+            {date.avoid.map((item, idx) => (
+              <span
+                key={`avoid-${item}-${idx}`}
+                className="rounded-md border border-[#C8102E]/20 bg-[#C8102E]/10 px-3 py-1 text-sm font-medium text-[#8B0000]"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </div>
       </div>
 
       {/* 气场解析模块 */}
-      <div className="bg-blue-50/40 rounded-xl p-4 md:p-5 border border-blue-100/50">
+      <div className="bg-[#ad6598]/10 rounded-xl p-4 md:p-5 border border-blue-100/50">
         <div className="flex items-center gap-2 mb-4">
-          <BookOpen className="w-4 h-4 text-blue-600" />
-          <h3 className="text-sm font-semibold text-blue-800">气场解析</h3>
+          <BookOpen className="w-4 h-4 text-[#806d9e]" />
+          <h3 className="text-sm font-semibold text-[#806d9e]">气场解析</h3>
         </div>
-        <div className="flex flex-col gap-3 text-sm text-blue-900/80 leading-relaxed">
+        <div className="flex flex-col gap-3 text-sm text-[#806d9e] leading-relaxed">
           {date.dayWuXing &&
             Array.from(new Set(date.dayWuXing.split(''))).map(
               (char) =>
                 WU_XING_EXPLANATION[char] && (
                   <p key={`wuxing-${char}`}>
-                    <span className="inline-block bg-blue-100/80 text-blue-800 font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
+                    <span className="inline-block bg-[#bc84a8]/30 text-[#806d9e] font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
                       {char}
                     </span>
                     {WU_XING_EXPLANATION[char]}
@@ -121,7 +180,7 @@ export function DateDetail({ date }: DateDetailProps) {
             )}
           {date.dayNaYin && NA_YIN_EXPLANATION[date.dayNaYin] && (
             <p>
-              <span className="inline-block bg-blue-100/80 text-blue-800 font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
+              <span className="inline-block bg-[#bc84a8]/30 text-[#806d9e] font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
                 {date.dayNaYin}
               </span>
               {NA_YIN_EXPLANATION[date.dayNaYin]}
@@ -129,7 +188,7 @@ export function DateDetail({ date }: DateDetailProps) {
           )}
           {WANG_SHUAI_EXPLANATION[date.wangShuai] && (
             <p>
-              <span className="inline-block bg-blue-100/80 text-blue-800 font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
+              <span className="inline-block bg-[#bc84a8]/30 text-[#806d9e] font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
                 {date.wangShuai}
               </span>
               {WANG_SHUAI_EXPLANATION[date.wangShuai]}
@@ -137,7 +196,7 @@ export function DateDetail({ date }: DateDetailProps) {
           )}
           {DI_SHI_EXPLANATION[date.diShi] && (
             <p>
-              <span className="inline-block bg-blue-100/80 text-blue-800 font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
+              <span className="inline-block bg-[#bc84a8]/30 text-[#806d9e] font-medium px-1.5 py-0.5 rounded text-xs mr-1.5 -translate-y-px">
                 {date.diShi}
               </span>
               {DI_SHI_EXPLANATION[date.diShi]}

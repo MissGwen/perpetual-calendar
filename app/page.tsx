@@ -22,7 +22,7 @@ export default function Home() {
       const today = new Date();
       setSelectedDate(getCalendarDate(today, today));
     }, 0);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -65,19 +65,18 @@ export default function Home() {
               </div>
             )}
           </div>
-        </div>
-
-        {/* Detail Section */}
-        <div className="lg:col-span-1 relative z-20 flex flex-col gap-4 lg:mt-0">
-          {isMounted && <DateDetail date={selectedDate} />}
-
           {/* Decorative Card */}
-          <div className="bg-linear-to-br from-[#8B0000] to-[#C8102E] rounded-2xl p-6 text-white shadow-xl hidden lg:block border border-[#D4AF37]/30">
+          <div className="mt-4 bg-linear-to-br from-[#8B0000] to-[#C8102E] rounded-2xl p-6 text-white shadow-xl hidden lg:block border border-[#D4AF37]/30">
             <h3 className="font-medium text-[#F3E5AB] mb-2 opacity-90">今日箴言</h3>
             <p className="text-lg leading-relaxed font-serif italic text-white/95">
               &quot;光阴似箭，日月如梭。珍惜当下的每一刻。&quot;
             </p>
           </div>
+        </div>
+
+        {/* Detail Section */}
+        <div className="lg:col-span-1 relative z-20 flex flex-col gap-4 lg:mt-0">
+          {isMounted && <DateDetail date={selectedDate} />}
         </div>
       </div>
     </main>

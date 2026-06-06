@@ -29,6 +29,12 @@ export interface CalendarDate {
   diShi: string; // 地势（长生十二神）
   shichen: string; // 当前时辰
   shichenWuxing: string; // 时辰五行
+
+  suitable: string[]; // 宜做的事
+  avoid: string[]; // 忌做的事
+  dayValue: string; // 十二值日（建、除、满、平、定、执、破、危、成、收、开、闭
+  isYellowRoad: boolean; // 是否为黄道吉日
+  dayGod: string; // 值日天神（如青龙、白虎等
 }
 
 export interface MonthData {
