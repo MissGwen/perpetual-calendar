@@ -7,6 +7,8 @@ import { CalendarDate } from '@/src/types/calendar';
 import { getCalendarDate } from '@/src/utils/dateUtils';
 import localFont from 'next/font/local';
 
+const DAILY_MESSAGE_STORAGE_KEY = 'perpetual-calendar-daily-message';
+
 const customFont = localFont({
   src: './font/customFont.ttf',
 });
@@ -14,6 +16,7 @@ const customFont = localFont({
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [dailyMessage, setDailyMessage] = useState('');
 
   // Initialize with today's date and set mounted state
   useEffect(() => {
@@ -21,10 +24,20 @@ export default function Home() {
       setIsMounted(true);
       const today = new Date();
       setSelectedDate(getCalendarDate(today, today));
+      const savedMessage = window.localStorage.getItem(DAILY_MESSAGE_STORAGE_KEY);
+      if (savedMessage) {
+        setDailyMessage(savedMessage);
+      }
     }, 0);
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    window.localStorage.setItem(DAILY_MESSAGE_STORAGE_KEY, dailyMessage);
+  }, [dailyMessage, isMounted]);
 
   return (
     <main className="container mx-auto p-2 md:p-8 min-h-screen flex items-center justify-center font-sans">
@@ -65,13 +78,40 @@ export default function Home() {
               </div>
             )}
           </div>
+          <div className="mt-4 overflow-hidden rounded-2xl border border-[#D4AF37]/20 bg-linear-to-br from-[#FDFAF3] via-white to-[#F7EFDD] p-5 md:p-6 shadow-xl shadow-primary/5">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-[#C8102E] to-[#8B0000] text-lg font-serif text-[#F3E5AB] shadow-md">
+                记
+              </span>
+              <div>
+                <h3 className={`text-xl text-primary ${customFont.className}`}>
+                  给今天的你留下一句话吧
+                </h3>
+                <p className="mt-1 text-sm text-[#7A5C3E]">
+                  我先来🙋‍♀️：你的存在本身对这个世界就有意义~
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 rounded-xl border border-[#D4AF37]/15 bg-white/80 p-2 shadow-inner shadow-primary/5">
+              <label htmlFor="daily-message" className="sr-only">
+                给今天的你留下一句话吧
+              </label>
+              <textarea
+                id="daily-message"
+                value={dailyMessage}
+                onChange={(event) => setDailyMessage(event.target.value)}
+                placeholder="例如：今天也要温柔一点，慢一点，也没关系。"
+                className="min-h-32 w-full resize-none rounded-lg border border-transparent bg-transparent px-3 py-3 text-sm leading-7 text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </div>
           {/* Decorative Card */}
-          <div className="mt-4 bg-linear-to-br from-[#8B0000] to-[#C8102E] rounded-2xl p-6 text-white shadow-xl hidden lg:block border border-[#D4AF37]/30">
+          {/* <div className="mt-4 bg-linear-to-br from-[#8B0000] to-[#C8102E] rounded-2xl p-6 text-white shadow-xl hidden lg:block border border-[#D4AF37]/30">
             <h3 className="font-medium text-[#F3E5AB] mb-2 opacity-90">今日箴言</h3>
             <p className="text-lg leading-relaxed font-serif italic text-white/95">
               &quot;光阴似箭，日月如梭。珍惜当下的每一刻。&quot;
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* Detail Section */}

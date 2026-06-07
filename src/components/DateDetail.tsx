@@ -125,7 +125,7 @@ export function DateDetail({ date }: DateDetailProps) {
         </div>
 
         {/* 宜 */}
-        <div className="flex justify-between gap-3 px-2 py-4">
+        <div className="flex justify-between gap-3 px-2 py-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#F3E5AB] font-serif text-xl font-bold text-[#7A1010] shadow-md ring-1 ring-inset ring-[#F3E5AB]/25">
             宜
           </div>
@@ -142,7 +142,7 @@ export function DateDetail({ date }: DateDetailProps) {
         </div>
 
         {/* 忌 */}
-        <div className="flex justify-between gap-3 px-2 py-4">
+        <div className="flex justify-between gap-3 px-2 py-3">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-br from-[#C8102E] to-[#8B0000] font-serif text-xl font-bold text-[#F3E5AB] shadow-md ring-1 ring-inset ring-[#F3E5AB]/25">
             忌
           </div>
