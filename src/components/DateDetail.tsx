@@ -126,7 +126,7 @@ export function DateDetail({ date }: DateDetailProps) {
 
         {/* 宜 */}
         <div className="flex justify-between gap-3 px-2 py-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-linear-to-r from-[#F3E5AB] to-[#D4AF37] font-serif text-xl font-bold text-[#7A1010] shadow-md ring-1 ring-inset ring-[#F3E5AB]/25">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-[#F3E5AB] font-serif text-xl font-bold text-[#7A1010] shadow-md ring-1 ring-inset ring-[#F3E5AB]/25">
             宜
           </div>
           <div className="flex w-4/5 flex-wrap gap-2">
@@ -155,6 +155,36 @@ export function DateDetail({ date }: DateDetailProps) {
                 {item}
               </span>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 二十八星宿模块 */}
+      <div className="bg-linear-to-br from-indigo-50/80 to-purple-50/60 rounded-xl overflow-hidden border border-indigo-100/60">
+        <div className="p-4">
+          <p className="text-sm font-medium text-indigo-800 mb-3">二十八星宿</p>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-xl font-bold text-indigo-900">{date.xiu}宿</span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                date.xiuLuck === '吉'
+                  ? 'bg-green-100 text-green-700 border border-green-200'
+                  : 'bg-red-100 text-red-700 border border-red-200'
+              }`}
+            >
+              {date.xiuLuck}
+            </span>
+          </div>
+          <div className="flex gap-3 text-xs text-indigo-700">
+            <span>
+              <span className="text-indigo-400">属性</span> {date.zheng}
+            </span>
+            <span>
+              <span className="text-indigo-400">动物</span> {date.animal}
+            </span>
+            <span>
+              <span className="text-indigo-400">方位</span> {date.gong}
+            </span>
           </div>
         </div>
       </div>
