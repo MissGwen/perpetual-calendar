@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useCompletion } from '@ai-sdk/react';
 import ReactMarkdown from 'react-markdown';
 import { CalendarDate } from '../types/calendar';
+import { getCalendarDate } from '../utils/dateUtils';
 import { CalendarDays, Sparkles, Star, BookOpen, WandSparkles, X } from 'lucide-react';
 import {
   WU_XING_EXPLANATION,
@@ -47,6 +48,12 @@ export function DateDetail({ date }: DateDetailProps) {
     streamProtocol: 'text',
   });
 
+  // 获取今天的真实日期数据，用于 AI 分析和弹窗显示
+  const todayData = useMemo(() => {
+    const today = new Date();
+    return getCalendarDate(today, today);
+  }, []);
+
   if (!date) return null;
 
   const handleOpenAiAnalysis = () => {
@@ -54,7 +61,7 @@ export function DateDetail({ date }: DateDetailProps) {
     setCompletion('');
 
     void complete('', {
-      body: buildAnalysisPayload(date),
+      body: buildAnalysisPayload(todayData),
     }).catch(() => undefined);
   };
 
@@ -321,10 +328,10 @@ export function DateDetail({ date }: DateDetailProps) {
             <div className="flex items-start justify-between gap-4 border-b border-gray-100 bg-linear-to-r from-[#fff8ef] to-white px-5 py-4 md:px-6">
               <div>
                 {/* <p className="text-xs font-medium tracking-[0.18em] text-primary/70">AI ANALYSIS</p> */}
-                <h3 className="mt-1 text-lg font-semibold text-primary/70">AI 分析</h3>
+                <h3 className="mt-1 text-lg font-semibold text-primary/70">今日 AI 分析</h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  {date.year}年{date.month + 1}月{date.day}日 · {date.lunarMonthName}
-                  {date.lunarDayName}
+                  {todayData.year}年{todayData.month + 1}月{todayData.day}日 · {todayData.lunarMonthName}
+                  {todayData.lunarDayName}
                 </p>
               </div>
               <button
