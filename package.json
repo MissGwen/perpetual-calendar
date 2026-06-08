@@ -11,6 +11,9 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@ai-sdk/deepseek": "^2.0.35",
+    "@ai-sdk/react": "^3.0.199",
+    "ai": "^6.0.197",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^1.8.0",

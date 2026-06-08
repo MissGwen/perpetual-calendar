@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { BGMPlayer } from '@/src/components/BGMPlayer';
 
 export const metadata: Metadata = {
   title: '萬年历',
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className="antialiased min-h-screen bg-linear-to-br from-background to-[#EAE0C8] text-foreground">
         {children}
+        <BGMPlayer />
       </body>
     </html>
   );
