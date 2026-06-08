@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useCompletion } from '@ai-sdk/react';
+import ReactMarkdown from 'react-markdown';
 import { CalendarDate } from '../types/calendar';
 import { CalendarDays, Sparkles, Star, BookOpen, WandSparkles, X } from 'lucide-react';
 import {
@@ -319,8 +320,8 @@ export function DateDetail({ date }: DateDetailProps) {
           >
             <div className="flex items-start justify-between gap-4 border-b border-gray-100 bg-linear-to-r from-[#fff8ef] to-white px-5 py-4 md:px-6">
               <div>
-                <p className="text-xs font-medium tracking-[0.18em] text-primary/70">AI ANALYSIS</p>
-                <h3 className="mt-1 text-lg font-semibold text-gray-900">AI 黄历分析</h3>
+                {/* <p className="text-xs font-medium tracking-[0.18em] text-primary/70">AI ANALYSIS</p> */}
+                <h3 className="mt-1 text-lg font-semibold text-primary/70">AI 分析</h3>
                 <p className="mt-1 text-sm text-gray-500">
                   {date.year}年{date.month + 1}月{date.day}日 · {date.lunarMonthName}
                   {date.lunarDayName}
@@ -343,13 +344,22 @@ export function DateDetail({ date }: DateDetailProps) {
                     AI 分析暂时不可用，请稍后再试。
                   </div>
                 ) : (
-                  <div className="whitespace-pre-wrap">
+                  <div className="relative">
                     {completion ? (
                       <>
-                        {completion}
-                        {isLoading && (
-                          <span className="ml-1 inline-block h-5 w-2 translate-y-1 animate-pulse rounded-sm bg-primary/70" />
-                        )}
+                        <ReactMarkdown
+                          components={{
+                            h2: ({ node, ...props }) => <h2 className="text-lg font-bold text-gray-900 mt-5 mb-2" {...props} />,
+                            h3: ({ node, ...props }) => <h3 className="text-base font-semibold text-gray-800 mt-4 mb-2" {...props} />,
+                            p: ({ node, ...props }) => <p className="mb-3 leading-relaxed text-gray-700" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-3 space-y-1 text-gray-700" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-3 space-y-1 text-gray-700" {...props} />,
+                            li: ({ node, ...props }) => <li className="pl-1" {...props} />,
+                            strong: ({ node, ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
+                          }}
+                        >
+                          {completion + (isLoading ? ' ▍' : '')}
+                        </ReactMarkdown>
                       </>
                     ) : (
                       <div className="flex items-center gap-3 text-gray-500">
