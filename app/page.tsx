@@ -10,7 +10,7 @@ import localFont from 'next/font/local';
 const DAILY_MESSAGE_STORAGE_KEY = 'perpetual-calendar-daily-message';
 
 const customFont = localFont({
-  src: './font/customFont.ttf',
+  src: '../public/font/customFont.ttf',
 });
 
 export default function Home() {
@@ -40,7 +40,7 @@ export default function Home() {
   }, [dailyMessage, isMounted]);
 
   return (
-    <main className="container mx-auto p-2 md:p-8 min-h-screen flex items-center justify-center font-sans">
+    <main className="container mx-auto pt-16 pb-8 px-2 md:px-8 min-h-screen flex items-center justify-center font-sans">
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Header / Intro for Mobile (hidden on desktop) */}
         <div className="lg:hidden text-center text-foreground">

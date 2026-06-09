@@ -1,7 +1,7 @@
 import { streamText } from 'ai';
-import { deepseek } from '@/app/ai/deepseek';
+import { deepseek } from '@/src/lib/ai/deepseek';
 // import type { DeepSeekLanguageModelOptions } from '@ai-sdk/deepseek';
-import { redis } from "../../database/redis";
+import { redis } from '@/src/lib/database/redis';
 // import type { DeepSeekLanguageModelOptions } from '@ai-sdk/deepseek';
 
 type AnalysisPayload = {
@@ -83,14 +83,14 @@ export async function POST(req: Request) {
           const encoder = new TextEncoder();
           // 使用扩展运算符 [...] 来拆分字符串，这样可以正确处理包含 emoji（代理对）的 Unicode 字符
           const chunks = [...cachedResponse];
-          
+
           for (const chunk of chunks) {
             controller.enqueue(encoder.encode(chunk));
             // 模拟打字延迟，每个字符 20ms
-            await new Promise(resolve => setTimeout(resolve, 20));
+            await new Promise((resolve) => setTimeout(resolve, 20));
           }
           controller.close();
-        }
+        },
       });
 
       return new Response(stream, {
@@ -102,9 +102,13 @@ export async function POST(req: Request) {
 
     // 3. 计算北京时间当日午夜零点剩余秒数
     const now = new Date();
-    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-    const beijingTime = new Date(utc + (3600000 * 8));
-    const nextMidnight = new Date(beijingTime.getFullYear(), beijingTime.getMonth(), beijingTime.getDate() + 1);
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    const beijingTime = new Date(utc + 3600000 * 8);
+    const nextMidnight = new Date(
+      beijingTime.getFullYear(),
+      beijingTime.getMonth(),
+      beijingTime.getDate() + 1,
+    );
     const expireSeconds = Math.floor((nextMidnight.getTime() - beijingTime.getTime()) / 1000);
 
     // 4. 没有缓存，调用大模型生成
@@ -137,7 +141,7 @@ export async function POST(req: Request) {
         } catch (error) {
           console.error('Failed to cache AI response:', error);
         }
-      }
+      },
     });
 
     return result.toTextStreamResponse();

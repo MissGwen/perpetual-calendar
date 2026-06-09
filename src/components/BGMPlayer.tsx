@@ -56,19 +56,15 @@ export function BGMPlayer() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <audio
-        ref={audioRef}
-        src="/music/bgm.mp3"
-        loop
-      />
+      <audio ref={audioRef} src="/music/bgm.mp3" loop />
       <button
         onClick={togglePlay}
         className={`p-3 rounded-full shadow-lg shadow-primary/20 backdrop-blur-md transition-all duration-300 flex items-center justify-center ${
-          isPlaying 
-            ? 'bg-primary/90 text-white hover:bg-primary' 
+          isPlaying
+            ? 'bg-primary/90 text-white hover:bg-primary'
             : 'bg-white/80 text-primary border border-primary/20 hover:bg-white'
         }`}
-        title={isPlaying ? "暂停音乐" : "播放音乐"}
+        title={isPlaying ? '暂停音乐' : '播放音乐'}
       >
         <Music className={`w-5 h-5 ${isPlaying ? 'animate-[spin_4s_linear_infinite]' : ''}`} />
       </button>

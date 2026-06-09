@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -330,7 +331,8 @@ export function DateDetail({ date }: DateDetailProps) {
                 {/* <p className="text-xs font-medium tracking-[0.18em] text-primary/70">AI ANALYSIS</p> */}
                 <h3 className="mt-1 text-lg font-semibold text-primary/70">今日 AI 分析</h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  {todayData.year}年{todayData.month + 1}月{todayData.day}日 · {todayData.lunarMonthName}
+                  {todayData.year}年{todayData.month + 1}月{todayData.day}日 ·{' '}
+                  {todayData.lunarMonthName}
                   {todayData.lunarDayName}
                 </p>
               </div>
@@ -356,13 +358,37 @@ export function DateDetail({ date }: DateDetailProps) {
                       <>
                         <ReactMarkdown
                           components={{
-                            h2: ({ node, ...props }) => <h2 className="text-lg font-bold text-gray-900 mt-5 mb-2" {...props} />,
-                            h3: ({ node, ...props }) => <h3 className="text-base font-semibold text-gray-800 mt-4 mb-2" {...props} />,
-                            p: ({ node, ...props }) => <p className="mb-3 leading-relaxed text-gray-700" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-3 space-y-1 text-gray-700" {...props} />,
-                            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-3 space-y-1 text-gray-700" {...props} />,
+                            h2: ({ node, ...props }) => (
+                              <h2
+                                className="text-lg font-bold text-gray-900 mt-5 mb-2"
+                                {...props}
+                              />
+                            ),
+                            h3: ({ node, ...props }) => (
+                              <h3
+                                className="text-base font-semibold text-gray-800 mt-4 mb-2"
+                                {...props}
+                              />
+                            ),
+                            p: ({ node, ...props }) => (
+                              <p className="mb-3 leading-relaxed text-gray-700" {...props} />
+                            ),
+                            ul: ({ node, ...props }) => (
+                              <ul
+                                className="list-disc pl-5 mb-3 space-y-1 text-gray-700"
+                                {...props}
+                              />
+                            ),
+                            ol: ({ node, ...props }) => (
+                              <ol
+                                className="list-decimal pl-5 mb-3 space-y-1 text-gray-700"
+                                {...props}
+                              />
+                            ),
                             li: ({ node, ...props }) => <li className="pl-1" {...props} />,
-                            strong: ({ node, ...props }) => <strong className="font-semibold text-gray-900" {...props} />,
+                            strong: ({ node, ...props }) => (
+                              <strong className="font-semibold text-gray-900" {...props} />
+                            ),
                           }}
                         >
                           {completion + (isLoading ? ' ▍' : '')}
