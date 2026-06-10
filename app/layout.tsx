@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { BGMPlayer } from '@/src/components/BGMPlayer';
-import { Header } from '@/src/components/Header';
+import { Header } from '@/src/components/header';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://perpetual-calendar-three.vercel.app'),
