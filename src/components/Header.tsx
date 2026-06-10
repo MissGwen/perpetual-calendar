@@ -2,6 +2,7 @@ import { auth, signIn, signOut } from '@/src/lib/auth';
 import { Bell, ChevronDown, LogOut, Settings, User } from 'lucide-react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
+import { SignOutMenuItem } from './SignOutMenuItem';
 
 export async function Header() {
   const session = await auth();
@@ -64,7 +65,7 @@ export async function Header() {
                         </span>
                         <span className="text-[#A69B8D] text-[11px] leading-none flex items-center gap-1">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#BE3939]/70 inline-block"></span>
-                          雅士
+                          GitHub
                         </span>
                       </div>
                       <ChevronDown className="w-4 h-4 text-[#A69B8D] group-hover:text-[#BE3939] transition-colors ml-1" />
@@ -73,7 +74,7 @@ export async function Header() {
 
                   <DropdownMenu.Portal>
                     <DropdownMenu.Content
-                      className="min-w-50 bg-[#FDFCF9] rounded-xl shadow-lg border border-[#EBE5D9] p-2 mt-2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2"
+                      className="min-w-50 z-50 bg-[#FDFCF9] rounded-xl shadow-lg border border-[#EBE5D9] p-2 mt-2 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2"
                       sideOffset={8}
                       align="end"
                     >
@@ -86,23 +87,7 @@ export async function Header() {
                         偏好设置
                       </DropdownMenu.Item>
                       <DropdownMenu.Separator className="h-px bg-[#EBE5D9] my-1.5 mx-2" />
-                      <form
-                        action={async () => {
-                          'use server';
-                          await signOut();
-                        }}
-                        className="w-full"
-                      >
-                        <DropdownMenu.Item asChild>
-                          <button
-                            type="submit"
-                            className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-[#BE3939] hover:bg-[#FFF0F0] rounded-lg cursor-pointer outline-none transition-colors"
-                          >
-                            <LogOut className="w-4 h-4" />
-                            退出登录
-                          </button>
-                        </DropdownMenu.Item>
-                      </form>
+                      <SignOutMenuItem />
                     </DropdownMenu.Content>
                   </DropdownMenu.Portal>
                 </DropdownMenu.Root>
