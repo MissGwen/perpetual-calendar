@@ -1,4 +1,5 @@
 import { streamText } from 'ai';
+import { env } from '@/src/env';
 import { deepseek } from '@/src/lib/ai/deepseek';
 // import type { DeepSeekLanguageModelOptions } from '@ai-sdk/deepseek';
 import { redis } from '@/src/lib/database/redis';
@@ -54,7 +55,7 @@ function buildPrompt(payload: AnalysisPayload) {
 }
 
 export async function POST(req: Request) {
-  if (!process.env.DEEPSEEK_API_KEY) {
+  if (!env.DEEPSEEK_API_KEY) {
     return new Response('AI 服务尚未配置 DEEPSEEK_API_KEY。', { status: 500 });
   }
 
