@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm run typecheck && pnpm run lint && pnpm run format:check",
+    "check": "pnpm run typecheck && pnpm run lint && pnpm run format:check && pnpm run test:run",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prisma:generate": "prisma generate",
