@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar } from '@/components/Calendar';
-import { DateDetail } from '@/components/DateDetail';
+import { Calendar, DateDetail } from '@/components/calendar';
 import { CalendarDate } from '@/types/calendar';
 import { getCalendarDate } from '@/lib/dateUtils';
 import localFont from 'next/font/local';

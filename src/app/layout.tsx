@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { BGMPlayer } from '@/components/BGMPlayer';
-import { Header } from '@/components/header';
+import { BGMPlayer } from '@/components/layout/BGMPlayer';
+import { Header } from '@/components/layout/header';
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';

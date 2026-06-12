@@ -4,7 +4,7 @@
 import { useState, useMemo } from 'react';
 import { useCompletion } from '@ai-sdk/react';
 import ReactMarkdown from 'react-markdown';
-import { CalendarDate } from '../types/calendar';
+import { CalendarDate } from '@/types/calendar';
 import { getCalendarDate } from '@/lib/dateUtils';
 import { CalendarDays, Sparkles, Star, BookOpen, WandSparkles, X } from 'lucide-react';
 import {

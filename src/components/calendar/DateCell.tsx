@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { CalendarDate } from '../types/calendar';
+import { CalendarDate } from '@/types/calendar';
 
 interface DateCellProps {
   date: CalendarDate;

@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { getMonthData } from '@/lib/dateUtils';
 import { DateCell } from './DateCell';
 import { MonthNavigator } from './MonthNavigator';
-import { CalendarDate } from '../types/calendar';
+import { CalendarDate } from '@/types/calendar';
 
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
 
