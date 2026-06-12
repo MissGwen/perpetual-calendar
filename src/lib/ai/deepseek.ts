@@ -1,5 +1,5 @@
 import { createDeepSeek } from '@ai-sdk/deepseek';
-import { env } from '@/src/env';
+import { env } from '@/env';
 
 export const deepseek = createDeepSeek({
   apiKey: env.DEEPSEEK_API_KEY ?? '',

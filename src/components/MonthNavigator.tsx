@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '../utils/cn';
+import { cn } from '@/lib/utils';
 
 interface MonthNavigatorProps {
   currentDate: Date;
@@ -49,7 +49,7 @@ export function MonthNavigator({
             onClick={() => setIsPickerOpen(!isPickerOpen)}
           >
             {year}年 {month + 1}月
-            <CalendarIcon className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+            <CalendarIcon className="w-4 h-4 text-gray-400 group-hover:text-festive transition-colors" />
           </button>
 
           {isPickerOpen && (
@@ -57,7 +57,7 @@ export function MonthNavigator({
               <select
                 value={year}
                 onChange={handleYearChange}
-                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white cursor-pointer"
+                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive/20 focus:border-festive bg-white cursor-pointer"
               >
                 {Array.from({ length: 101 }, (_, i) => year - 50 + i).map((y) => (
                   <option key={y} value={y}>
@@ -68,7 +68,7 @@ export function MonthNavigator({
               <select
                 value={month}
                 onChange={handleMonthChange}
-                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white cursor-pointer"
+                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive/20 focus:border-festive bg-white cursor-pointer"
               >
                 {Array.from({ length: 12 }, (_, i) => i).map((m) => (
                   <option key={m} value={m}>
@@ -78,7 +78,7 @@ export function MonthNavigator({
               </select>
               <button
                 onClick={() => setIsPickerOpen(false)}
-                className="px-3 py-2 bg-primary text-white rounded-lg hover:bg-primary-light transition-colors text-sm font-medium"
+                className="px-3 py-2 bg-festive text-white rounded-lg hover:bg-festive-light transition-colors text-sm font-medium"
               >
                 确定
               </button>
@@ -99,7 +99,7 @@ export function MonthNavigator({
         onClick={onTodayClick}
         className={cn(
           'px-4 py-2 text-sm font-medium rounded-full transition-all',
-          'bg-red-50 text-primary hover:bg-red-100 hover:shadow-sm',
+          'bg-red-50 text-festive hover:bg-red-100 hover:shadow-sm',
         )}
       >
         回到今天

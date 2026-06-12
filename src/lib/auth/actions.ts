@@ -1,6 +1,6 @@
 'use server';
 
-import { signIn, signOut } from '@/src/lib/auth';
+import { signIn, signOut } from '@/lib/auth';
 
 export async function signInWithGitHubAction() {
   await signIn('github');

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { getMonthData } from '../utils/dateUtils';
+import { getMonthData } from '@/lib/dateUtils';
 import { DateCell } from './DateCell';
 import { MonthNavigator } from './MonthNavigator';
 import { CalendarDate } from '../types/calendar';
@@ -47,7 +47,7 @@ export function Calendar({ onDateSelect, selectedDate, fontClassName }: Calendar
       {/* 水印背景 */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0">
         <span
-          className={`text-[#D4AF37] opacity-10 select-none ${fontClassName}`}
+          className={`text-gold opacity-10 select-none ${fontClassName}`}
           style={{
             fontSize: '300px',
             lineHeight: 1,
@@ -71,7 +71,7 @@ export function Calendar({ onDateSelect, selectedDate, fontClassName }: Calendar
             <div
               key={day}
               className={`text-center text-sm font-medium py-2 ${
-                index === 0 || index === 6 ? 'text-primary' : 'text-gray-600'
+                index === 0 || index === 6 ? 'text-festive' : 'text-gray-600'
               }`}
             >
               {day}

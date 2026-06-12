@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '../utils/cn';
+import { cn } from '@/lib/utils';
 import { CalendarDate } from '../types/calendar';
 
 interface DateCellProps {
@@ -20,7 +20,7 @@ export function DateCell({ date, isSelected, onClick }: DateCellProps) {
   const isToday = date.isToday;
   const isWeekend = date.weekday === 0 || date.weekday === 6;
 
-  // Get primary display text for lunar or holiday
+  // Get festive display text for lunar or holiday
   let secondaryText = date.lunarDayName;
   if (date.holidays.length > 0) {
     // Prefer holiday or solar term
@@ -36,14 +36,14 @@ export function DateCell({ date, isSelected, onClick }: DateCellProps) {
       onClick={() => onClick?.(date)}
       className={cn(
         'relative flex flex-col items-center justify-center aspect-square rounded-xl p-1 md:p-2 cursor-pointer transition-all duration-200 group border border-transparent hover:bg-red-50',
-        isSelected && 'bg-red-50 border-red-200 ring-2 ring-primary/20',
-        isToday && 'bg-primary text-[#F3E5AB] hover:bg-primary-light shadow-md shadow-primary/20',
+        isSelected && 'bg-red-50 border-red-200 ring-2 ring-festive/20',
+        isToday && 'bg-festive text-gold-light hover:bg-festive-light shadow-md shadow-festive/20',
       )}
     >
       <span
         className={cn(
           'text-base md:text-lg font-medium',
-          !isToday && isWeekend && 'text-primary',
+          !isToday && isWeekend && 'text-festive',
           !isToday && !isWeekend && 'text-gray-800',
         )}
       >
@@ -52,8 +52,8 @@ export function DateCell({ date, isSelected, onClick }: DateCellProps) {
       <span
         className={cn(
           'text-[10px] md:text-xs text-center whitespace-normal leading-[1.1] md:leading-tight wrap-break-word max-w-full px-0.5',
-          isToday ? 'text-[#F3E5AB]/90' : isHolidayOrTerm ? 'text-primary' : 'text-gray-500',
-          isSelected && !isToday && !isHolidayOrTerm && 'text-primary',
+          isToday ? 'text-gold-light/90' : isHolidayOrTerm ? 'text-festive' : 'text-gray-500',
+          isSelected && !isToday && !isHolidayOrTerm && 'text-festive',
         )}
       >
         {secondaryText}
@@ -61,7 +61,7 @@ export function DateCell({ date, isSelected, onClick }: DateCellProps) {
 
       {/* Red dot for holidays if not displaying text prominently or just an indicator */}
       {date.isHoliday && (
-        <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#D4AF37] rounded-full" />
+        <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-gold rounded-full" />
       )}
     </div>
   );

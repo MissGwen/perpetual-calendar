@@ -1,6 +1,6 @@
 'use client';
 
-import { signInWithGitHubAction } from '@/src/lib/auth/actions';
+import { signInWithGitHubAction } from '@/lib/auth/actions';
 import { Bell, ChevronDown, Eye, EyeOff, Settings, User, X } from 'lucide-react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
@@ -54,13 +54,13 @@ function UserAvatar({ session, name }: { session: Session; name: string }) {
         width={40}
         height={40}
         unoptimized
-        className="h-10 w-10 rounded-full border-2 border-[#EBE5D9] object-cover transition-colors group-hover:border-[#BE3939]/50"
+        className="h-10 w-10 rounded-full border-2 border-ink-100 object-cover transition-colors group-hover:border-brand/50"
       />
     );
   }
 
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[#EBE5D9] bg-[#F5EFE6] text-sm font-medium text-[#4A433A] transition-colors group-hover:border-[#BE3939]/50 group-hover:text-[#BE3939]">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-ink-100 bg-cream text-sm font-medium text-ink-700 transition-colors group-hover:border-brand/50 group-hover:text-brand">
       {name.slice(0, 1)}
     </div>
   );
@@ -115,23 +115,23 @@ export function HeaderClient({ session }: HeaderClientProps) {
   }
 
   return (
-    <div className="sticky top-0 z-50 font-sans selection:bg-[#BE3939] selection:text-white">
-      <div className="h-1 w-full bg-linear-to-r from-[#BE3939]/80 via-[#BE3939] to-[#BE3939]/80" />
+    <div className="sticky top-0 z-50 font-sans selection:bg-brand selection:text-white">
+      <div className="h-1 w-full bg-linear-to-r from-brand/80 via-brand to-brand/80" />
 
-      <header className="w-full border-b border-[#EBE5D9] bg-[#FDFCF9]/60 backdrop-blur-md">
+      <header className="w-full border-b border-ink-100 bg-parchment/60 backdrop-blur-md">
         <div className="mx-auto flex h-19 max-w-360 items-center justify-between px-6 lg:px-10">
           <div className="group flex cursor-pointer items-center gap-4">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-sm bg-[#BE3939] shadow-sm transition-all duration-300 group-hover:rotate-0 group-hover:scale-105 -rotate-2">
-              <div className="absolute inset-0.75 rounded-xs border border-[#FDFCF9]/40" />
-              <span className="-translate-y-px select-none font-serif text-2xl font-bold text-[#FDFCF9]">
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-sm bg-brand shadow-sm transition-all duration-300 group-hover:rotate-0 group-hover:scale-105 -rotate-2">
+              <div className="absolute inset-0.75 rounded-xs border border-parchment/40" />
+              <span className="-translate-y-px select-none font-serif text-2xl font-bold text-parchment">
                 历
               </span>
             </div>
             <div className="flex flex-col">
-              <h1 className="mb-1.5 text-[26px] leading-none font-serif font-bold tracking-[0.2em] text-[#3A332C] transition-colors group-hover:text-[#BE3939]">
+              <h1 className="mb-1.5 text-[26px] leading-none font-serif font-bold tracking-[0.2em] text-ink-800 transition-colors group-hover:text-brand">
                 万年历
               </h1>
-              <span className="text-[11px] leading-none font-medium tracking-[0.18em] text-[#A69B8D] uppercase">
+              <span className="text-[11px] leading-none font-medium tracking-[0.18em] text-ink-400 uppercase">
                 Chinese Almanac
               </span>
             </div>
@@ -142,42 +142,42 @@ export function HeaderClient({ session }: HeaderClientProps) {
               <div className="flex items-center gap-5">
                 <button
                   type="button"
-                  className="relative rounded-full p-2.5 text-[#8C8273] transition-all duration-200 hover:bg-[#F5EFE6] hover:text-[#BE3939]"
+                  className="relative rounded-full p-2.5 text-ink-500 transition-all duration-200 hover:bg-cream hover:text-brand"
                 >
                   <Bell className="h-5 w-5" />
-                  <span className="absolute top-2 right-2 h-2 w-2 rounded-full border-2 border-[#FDFCF9] bg-[#BE3939]" />
+                  <span className="absolute top-2 right-2 h-2 w-2 rounded-full border-2 border-parchment bg-brand" />
                 </button>
 
-                <div className="h-6 w-px bg-[#EBE5D9]" />
+                <div className="h-6 w-px bg-ink-100" />
 
                 <DropdownMenu.Root modal={false}>
                   <DropdownMenu.Trigger asChild>
                     <button
                       type="button"
-                      className="group flex items-center gap-3 rounded-full border border-transparent p-1.5 pr-4 outline-none transition-all duration-200 hover:border-[#EBE5D9] hover:bg-[#F5EFE6]"
+                      className="group flex items-center gap-3 rounded-full border border-transparent p-1.5 pr-4 outline-none transition-all duration-200 hover:border-ink-100 hover:bg-cream"
                     >
                       <UserAvatar session={session} name={displayName} />
                       <div className="hidden items-start sm:flex sm:flex-col">
-                        <span className="mb-1.5 text-sm leading-none font-medium text-[#4A433A] transition-colors group-hover:text-[#BE3939]">
+                        <span className="mb-1.5 text-sm leading-none font-medium text-ink-700 transition-colors group-hover:text-brand">
                           {displayName}
                         </span>
-                        <span className="flex items-center gap-1 text-[11px] leading-none text-[#A69B8D]">
-                          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#BE3939]/70" />
+                        <span className="flex items-center gap-1 text-[11px] leading-none text-ink-400">
+                          <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand/70" />
                           GitHub
                         </span>
                       </div>
-                      <ChevronDown className="ml-1 h-4 w-4 text-[#A69B8D] transition-colors group-hover:text-[#BE3939]" />
+                      <ChevronDown className="ml-1 h-4 w-4 text-ink-400 transition-colors group-hover:text-brand" />
                     </button>
                   </DropdownMenu.Trigger>
 
                   <DropdownMenu.Portal>
                     <DropdownMenu.Content
-                      className="z-50 mt-2 min-w-50 rounded-xl border border-[#EBE5D9] bg-[#FDFCF9] p-2 shadow-lg data-[side=bottom]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+                      className="z-50 mt-2 min-w-50 rounded-xl border border-ink-100 bg-parchment p-2 shadow-lg data-[side=bottom]:slide-in-from-top-2 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
                       sideOffset={8}
                       align="end"
                     >
                       <DropdownMenu.Item
-                        className="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-[#4A433A] outline-none transition-colors hover:bg-[#F5EFE6] hover:text-[#BE3939]"
+                        className="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-ink-700 outline-none transition-colors hover:bg-cream hover:text-brand"
                         onSelect={(event) => event.preventDefault()}
                       >
                         <span className="flex items-center gap-3">
@@ -186,7 +186,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
                         </span>
                       </DropdownMenu.Item>
                       <DropdownMenu.Item
-                        className="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-[#4A433A] outline-none transition-colors hover:bg-[#F5EFE6] hover:text-[#BE3939]"
+                        className="cursor-pointer rounded-lg px-3 py-2.5 text-sm text-ink-700 outline-none transition-colors hover:bg-cream hover:text-brand"
                         onSelect={(event) => event.preventDefault()}
                       >
                         <span className="flex items-center gap-3">
@@ -194,7 +194,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
                           偏好设置
                         </span>
                       </DropdownMenu.Item>
-                      <DropdownMenu.Separator className="mx-2 my-1.5 h-px bg-[#EBE5D9]" />
+                      <DropdownMenu.Separator className="mx-2 my-1.5 h-px bg-ink-100" />
                       <SignOutMenuItem />
                     </DropdownMenu.Content>
                   </DropdownMenu.Portal>
@@ -204,10 +204,10 @@ export function HeaderClient({ session }: HeaderClientProps) {
               <button
                 type="button"
                 onClick={() => setAuthOpen(true)}
-                className="group relative flex items-center justify-center overflow-hidden rounded-md border border-[#EBE5D9] bg-[#F5EFE6] px-8 py-2.5 transition-all duration-300 hover:shadow-md"
+                className="group relative flex items-center justify-center overflow-hidden rounded-md border border-ink-100 bg-cream px-8 py-2.5 transition-all duration-300 hover:shadow-md"
               >
-                <div className="absolute inset-0 translate-y-full bg-[#BE3939] transition-transform duration-300 ease-out group-hover:translate-y-0" />
-                <span className="relative z-10 text-sm font-medium tracking-widest text-[#4A433A] transition-colors duration-300 group-hover:text-[#FDFCF9]">
+                <div className="absolute inset-0 translate-y-full bg-brand transition-transform duration-300 ease-out group-hover:translate-y-0" />
+                <span className="relative z-10 text-sm font-medium tracking-widest text-ink-700 transition-colors duration-300 group-hover:text-parchment">
                   登录
                 </span>
               </button>
@@ -224,26 +224,26 @@ export function HeaderClient({ session }: HeaderClientProps) {
             aria-hidden="true"
           />
 
-          <div className="fixed top-1/2 left-1/2 z-50 w-full max-w-105 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-[#EBE5D9] bg-[#FDFCF9] shadow-2xl animate-in fade-in-0 zoom-in-95">
-            <div className="h-1 w-full bg-linear-to-r from-[#BE3939]/60 via-[#BE3939] to-[#BE3939]/60" />
+          <div className="fixed top-1/2 left-1/2 z-50 w-full max-w-105 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-ink-100 bg-parchment shadow-2xl animate-in fade-in-0 zoom-in-95">
+            <div className="h-1 w-full bg-linear-to-r from-brand/60 via-brand to-brand/60" />
 
             <div className="p-8">
               <div className="mb-7 flex items-start justify-between">
                 <div>
                   <div className="mb-1.5 flex items-center gap-2.5">
-                    <div className="flex h-7 w-7 rotate-[-4deg] items-center justify-center rounded-[3px] bg-[#BE3939] shadow-sm">
-                      <span className="select-none font-serif text-sm font-bold text-[#FDFCF9]">
+                    <div className="flex h-7 w-7 rotate-[-4deg] items-center justify-center rounded-[3px] bg-brand shadow-sm">
+                      <span className="select-none font-serif text-sm font-bold text-parchment">
                         历
                       </span>
                     </div>
-                    <span className="font-serif text-[17px] font-bold tracking-[0.15em] text-[#3A332C]">
+                    <span className="font-serif text-[17px] font-bold tracking-[0.15em] text-ink-800">
                       万年历
                     </span>
                   </div>
-                  <h2 className="font-serif text-xl font-bold tracking-wide text-[#3A332C]">
+                  <h2 className="font-serif text-xl font-bold tracking-wide text-ink-800">
                     {view === 'login' ? '欢迎回来' : '创建账号'}
                   </h2>
-                  <p className="mt-0.5 text-[13px] tracking-wide text-[#A69B8D]">
+                  <p className="mt-0.5 text-[13px] tracking-wide text-ink-400">
                     {view === 'login' ? '登录以使用完整功能' : '注册一个新账号开始体验'}
                   </p>
                 </div>
@@ -251,7 +251,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
                 <button
                   type="button"
                   onClick={() => setAuthOpen(false)}
-                  className="-mt-1 -mr-1 rounded-lg p-1.5 text-[#A69B8D] transition-all hover:bg-[#F5EFE6] hover:text-[#BE3939]"
+                  className="-mt-1 -mr-1 rounded-lg p-1.5 text-ink-400 transition-all hover:bg-cream hover:text-brand"
                 >
                   <X className="h-4.5 w-4.5" />
                 </button>
@@ -261,7 +261,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
               <form onSubmit={handlePlaceholderSubmit} className="space-y-4">
                 {view === 'register' ? (
                   <div>
-                    <label className="mb-1.5 block text-[13px] font-medium tracking-wide text-[#4A433A]">
+                    <label className="mb-1.5 block text-[13px] font-medium tracking-wide text-ink-700">
                       用户名
                     </label>
                     <input
@@ -269,13 +269,13 @@ export function HeaderClient({ session }: HeaderClientProps) {
                       value={username}
                       onChange={(event) => setUsername(event.target.value)}
                       placeholder="请输入用户名"
-                      className="w-full rounded-lg border border-[#EBE5D9] bg-[#F5EFE6] px-4 py-2.5 text-sm text-[#3A332C] transition-all placeholder:text-[#C4B9AC] focus:border-[#BE3939]/60 focus:bg-[#FDFCF9] focus:outline-none"
+                      className="w-full rounded-lg border border-ink-100 bg-cream px-4 py-2.5 text-sm text-ink-800 transition-all placeholder:text-ink-300 focus:border-brand/60 focus:bg-parchment focus:outline-none"
                     />
                   </div>
                 ) : null}
 
                 <div>
-                  <label className="mb-1.5 block text-[13px] font-medium tracking-wide text-[#4A433A]">
+                  <label className="mb-1.5 block text-[13px] font-medium tracking-wide text-ink-700">
                     {view === 'login' ? '账号' : '邮箱'}
                   </label>
                   <input
@@ -283,19 +283,19 @@ export function HeaderClient({ session }: HeaderClientProps) {
                     value={account}
                     onChange={(event) => setAccount(event.target.value)}
                     placeholder={view === 'login' ? '请输入账号或邮箱' : '请输入邮箱地址'}
-                    className="w-full rounded-lg border border-[#EBE5D9] bg-[#F5EFE6] px-4 py-2.5 text-sm text-[#3A332C] transition-all placeholder:text-[#C4B9AC] focus:border-[#BE3939]/60 focus:bg-[#FDFCF9] focus:outline-none"
+                    className="w-full rounded-lg border border-ink-100 bg-cream px-4 py-2.5 text-sm text-ink-800 transition-all placeholder:text-ink-300 focus:border-brand/60 focus:bg-parchment focus:outline-none"
                   />
                 </div>
 
                 <div>
                   <div className="mb-1.5 flex items-center justify-between">
-                    <label className="block text-[13px] font-medium tracking-wide text-[#4A433A]">
+                    <label className="block text-[13px] font-medium tracking-wide text-ink-700">
                       密码
                     </label>
                     {view === 'login' ? (
                       <button
                         type="button"
-                        className="text-[12px] tracking-wide text-[#BE3939]/80 transition-colors hover:text-[#BE3939]"
+                        className="text-[12px] tracking-wide text-brand/80 transition-colors hover:text-brand"
                       >
                         忘记密码？
                       </button>
@@ -308,12 +308,12 @@ export function HeaderClient({ session }: HeaderClientProps) {
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
                       placeholder="请输入密码"
-                      className="w-full rounded-lg border border-[#EBE5D9] bg-[#F5EFE6] px-4 py-2.5 pr-11 text-sm text-[#3A332C] transition-all placeholder:text-[#C4B9AC] focus:border-[#BE3939]/60 focus:bg-[#FDFCF9] focus:outline-none"
+                      className="w-full rounded-lg border border-ink-100 bg-cream px-4 py-2.5 pr-11 text-sm text-ink-800 transition-all placeholder:text-ink-300 focus:border-brand/60 focus:bg-parchment focus:outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((value) => !value)}
-                      className="absolute top-1/2 right-3 -translate-y-1/2 text-[#A69B8D] transition-colors hover:text-[#BE3939]"
+                      className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-400 transition-colors hover:text-brand"
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -322,7 +322,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
 
                 {view === 'register' ? (
                   <div>
-                    <label className="mb-1.5 block text-[13px] font-medium tracking-wide text-[#4A433A]">
+                    <label className="mb-1.5 block text-[13px] font-medium tracking-wide text-ink-700">
                       确认密码
                     </label>
 
@@ -332,12 +332,12 @@ export function HeaderClient({ session }: HeaderClientProps) {
                         value={confirmPassword}
                         onChange={(event) => setConfirmPassword(event.target.value)}
                         placeholder="请再次输入密码"
-                        className="w-full rounded-lg border border-[#EBE5D9] bg-[#F5EFE6] px-4 py-2.5 pr-11 text-sm text-[#3A332C] transition-all placeholder:text-[#C4B9AC] focus:border-[#BE3939]/60 focus:bg-[#FDFCF9] focus:outline-none"
+                        className="w-full rounded-lg border border-ink-100 bg-cream px-4 py-2.5 pr-11 text-sm text-ink-800 transition-all placeholder:text-ink-300 focus:border-brand/60 focus:bg-parchment focus:outline-none"
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword((value) => !value)}
-                        className="absolute top-1/2 right-3 -translate-y-1/2 text-[#A69B8D] transition-colors hover:text-[#BE3939]"
+                        className="absolute top-1/2 right-3 -translate-y-1/2 text-ink-400 transition-colors hover:text-brand"
                       >
                         {showConfirmPassword ? (
                           <EyeOff className="h-4 w-4" />
@@ -351,23 +351,23 @@ export function HeaderClient({ session }: HeaderClientProps) {
 
                 <button
                   type="submit"
-                  className="group relative mt-1 w-full overflow-hidden rounded-lg bg-[#BE3939] py-2.5 transition-all duration-200 hover:shadow-md"
+                  className="group relative mt-1 w-full overflow-hidden rounded-lg bg-brand py-2.5 transition-all duration-200 hover:shadow-md"
                 >
-                  <div className="absolute inset-0 bg-[#A52E2E] opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-                  <span className="relative z-10 text-sm font-medium tracking-widest text-[#FDFCF9]">
+                  <div className="absolute inset-0 bg-brand-dark opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+                  <span className="relative z-10 text-sm font-medium tracking-widest text-parchment">
                     {view === 'login' ? '登　录' : '注　册'}
                   </span>
                 </button>
               </form>
 
-              <p className="mt-4 text-center text-[13px] text-[#8C8273]">
+              <p className="mt-4 text-center text-[13px] text-ink-500">
                 {view === 'login' ? (
                   <>
                     还没有账号？{' '}
                     <button
                       type="button"
                       onClick={() => switchView('register')}
-                      className="font-medium text-[#BE3939] transition-colors hover:underline"
+                      className="font-medium text-brand transition-colors hover:underline"
                     >
                       立即注册
                     </button>
@@ -378,7 +378,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
                     <button
                       type="button"
                       onClick={() => switchView('login')}
-                      className="font-medium text-[#BE3939] transition-colors hover:underline"
+                      className="font-medium text-brand transition-colors hover:underline"
                     >
                       返回登录
                     </button>
@@ -387,21 +387,21 @@ export function HeaderClient({ session }: HeaderClientProps) {
               </p>
 
               <div className="my-5 flex items-center gap-3">
-                <div className="h-px flex-1 bg-[#EBE5D9]" />
-                <span className="shrink-0 text-[12px] tracking-widest text-[#C4B9AC]">
+                <div className="h-px flex-1 bg-ink-100" />
+                <span className="shrink-0 text-[12px] tracking-widest text-ink-300">
                   第三方登录
                 </span>
-                <div className="h-px flex-1 bg-[#EBE5D9]" />
+                <div className="h-px flex-1 bg-ink-100" />
               </div>
 
               <div className="flex gap-3">
                 <form action={signInWithGitHubAction} className="flex-1">
                   <button
                     type="submit"
-                    className="group flex w-full items-center justify-center gap-2.5 rounded-lg border border-[#EBE5D9] bg-[#F5EFE6] py-2.5 transition-all duration-200 hover:border-[#D5C9BA] hover:bg-[#EFE8DC]"
+                    className="group flex w-full items-center justify-center gap-2.5 rounded-lg border border-ink-100 bg-cream py-2.5 transition-all duration-200 hover:border-ink-200 hover:bg-cream-hover"
                   >
                     <GitHubIcon />
-                    <span className="text-[13px] font-medium text-[#4A433A] transition-colors group-hover:text-[#3A332C]">
+                    <span className="text-[13px] font-medium text-ink-700 transition-colors group-hover:text-ink-800">
                       GitHub
                     </span>
                   </button>
@@ -409,10 +409,10 @@ export function HeaderClient({ session }: HeaderClientProps) {
 
                 <button
                   type="button"
-                  className="group flex flex-1 items-center justify-center gap-2.5 rounded-lg border border-[#EBE5D9] bg-[#F5EFE6] py-2.5 transition-all duration-200 hover:border-[#D5C9BA] hover:bg-[#EFE8DC]"
+                  className="group flex flex-1 items-center justify-center gap-2.5 rounded-lg border border-ink-100 bg-cream py-2.5 transition-all duration-200 hover:border-ink-200 hover:bg-cream-hover"
                 >
                   <GoogleIcon />
-                  <span className="text-[13px] font-medium text-[#4A433A] transition-colors group-hover:text-[#3A332C]">
+                  <span className="text-[13px] font-medium text-ink-700 transition-colors group-hover:text-ink-800">
                     Google
                   </span>
                 </button>

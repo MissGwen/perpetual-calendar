@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
-import './globals.css';
-import { BGMPlayer } from '@/src/components/BGMPlayer';
-import { Header } from '@/src/components/header';
+import { BGMPlayer } from '@/components/BGMPlayer';
+import { Header } from '@/components/header';
+import { Inter } from 'next/font/google';
+import { cn } from '@/lib/utils';
+import '@/styles/globals.css';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://perpetual-calendar-three.vercel.app'),
@@ -50,8 +54,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh">
-      <body className="antialiased min-h-screen bg-linear-to-br from-background to-[#EAE0C8] text-foreground">
+    <html lang="zh" className={cn('font-sans', inter.variable)}>
+      <body className="antialiased min-h-screen bg-linear-to-br from-paper to-parchment-deep text-ink-deep">
         <Header />
         {children}
         <BGMPlayer />

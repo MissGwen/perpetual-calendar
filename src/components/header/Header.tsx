@@ -1,4 +1,4 @@
-import { auth } from '@/src/lib/auth';
+import { auth } from '@/lib/auth';
 import { HeaderClient } from './HeaderClient';
 
 export async function Header() {

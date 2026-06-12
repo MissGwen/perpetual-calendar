@@ -1,8 +1,8 @@
 import { streamText } from 'ai';
-import { env } from '@/src/env';
-import { deepseek } from '@/src/lib/ai/deepseek';
+import { env } from '@/env';
+import { deepseek } from '@/lib/ai/deepseek';
 // import type { DeepSeekLanguageModelOptions } from '@ai-sdk/deepseek';
-import { redis } from '@/src/lib/database/redis';
+import { redis } from '@/lib/database/redis';
 // import type { DeepSeekLanguageModelOptions } from '@ai-sdk/deepseek';
 
 type AnalysisPayload = {
