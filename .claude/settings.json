@@ -3,17 +3,18 @@
   "permissions": {
     "allow": [
       "Bash(pnpm install)",
+      "Bash(pnpm run typecheck)",
       "Bash(pnpm run lint)",
       "Bash(pnpm run lint:fix)",
-      "Bash(pnpm run typecheck)",
-      "Bash(pnpm run check)",
-      "Bash(pnpm run test:run)",
       "Bash(pnpm run format)",
       "Bash(pnpm run format:check)",
+      "Bash(pnpm run test:run)",
+      "Bash(pnpm run check)",
       "Bash(pnpm run prisma:generate)",
-      "Bash(git status)",
-      "Bash(git diff *)",
-      "Bash(git log *)"
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)"
     ],
     "deny": ["Read(.env)", "Read(.env.*)"]
   }
