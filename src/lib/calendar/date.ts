@@ -9,7 +9,7 @@ import {
   format,
 } from 'date-fns';
 import { Lunar, Solar, HolidayUtil } from 'lunar-javascript';
-import { CalendarDate, MonthData, Holiday } from '../types/calendar';
+import { CalendarDate, MonthData, Holiday } from '@/types/calendar';
 
 export function getWangXiang(dayWuXing: string, monthWuXing: string): string {
   // 定义五行生克关系，返回 日干 在 月令 下的状态（旺相休囚死

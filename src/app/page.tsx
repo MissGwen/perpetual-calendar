@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar, DateDetail } from '@/components/calendar';
 import { CalendarDate } from '@/types/calendar';
-import { getCalendarDate } from '@/lib/dateUtils';
+import { getCalendarDate } from '@/lib/calendar/date';
 import localFont from 'next/font/local';
 
 const DAILY_MESSAGE_STORAGE_KEY = 'perpetual-calendar-daily-message';

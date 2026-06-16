@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { getMonthData } from '@/lib/dateUtils';
-import { DateCell } from './DateCell';
-import { MonthNavigator } from './MonthNavigator';
+import { getMonthData } from '@/lib/calendar/date';
+import { DateCell } from './date-cell';
+import { MonthNavigator } from './month-navigator';
 import { CalendarDate } from '@/types/calendar';
 
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];

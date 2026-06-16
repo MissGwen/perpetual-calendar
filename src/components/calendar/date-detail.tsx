@@ -5,14 +5,14 @@ import { useState, useMemo } from 'react';
 import { useCompletion } from '@ai-sdk/react';
 import ReactMarkdown from 'react-markdown';
 import { CalendarDate } from '@/types/calendar';
-import { getCalendarDate } from '@/lib/dateUtils';
+import { getCalendarDate } from '@/lib/calendar/date';
 import { CalendarDays, Sparkles, Star, BookOpen, WandSparkles, X } from 'lucide-react';
 import {
   WU_XING_EXPLANATION,
   NA_YIN_EXPLANATION,
   WANG_SHUAI_EXPLANATION,
   DI_SHI_EXPLANATION,
-} from '@/lib/explanations';
+} from '@/constants/explanations';
 
 interface DateDetailProps {
   date: CalendarDate | null;

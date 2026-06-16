@@ -92,20 +92,31 @@ pnpm start
 
 ```text
 .
-├── app/                  # Next.js App Router routes and main pages
-│   ├── api/              # API Routes (including AI analysis endpoints)
-│   ├── font/             # Custom local fonts
-│   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout (SEO optimized)
-│   └── page.tsx          # Home page main view
-├── src/
-│   ├── components/       # UI Components
-│   │   ├── Calendar.tsx      # Main calendar grid component
-│   │   ├── DateDetail.tsx    # Sidebar details (Almanac, AI, etc.)
-│   │   ├── BGMPlayer.tsx     # Ambient music player
-│   │   └── MonthNavigator.tsx# Month navigation bar
-│   ├── types/            # TypeScript type definitions
-│   └── utils/            # Core logic & Utility functions
+├── public/               # Static assets (custom fonts, background music)
+├── prisma/               # Prisma schema & migrations
+├── generated/            # Prisma generated client (build output)
+└── src/
+    ├── app/              # Next.js App Router — routing only
+    │   ├── api/          # Route handlers (AI analysis, NextAuth)
+    │   ├── globals.css   # Global styles (Tailwind v4 entry)
+    │   ├── layout.tsx    # Root layout (SEO optimized)
+    │   ├── page.tsx      # Home page
+    │   ├── robots.ts     # robots.txt
+    │   └── sitemap.ts    # sitemap.xml
+    ├── components/
+    │   ├── ui/           # shadcn/ui primitives (button, …)
+    │   ├── calendar/     # Calendar feature (grid, cell, detail, navigator)
+    │   └── layout/       # App shell (header, ambient music player)
+    ├── lib/
+    │   ├── ai/           # DeepSeek client
+    │   ├── auth/         # NextAuth config & server actions
+    │   ├── calendar/     # Core almanac / date logic (+ colocated tests)
+    │   ├── db/           # Prisma (Postgres) & Redis clients
+    │   └── utils.ts      # cn() class-name helper
+    ├── constants/        # Static domain data (Wu Xing / Na Yin explanations)
+    ├── types/            # Shared types & ambient module declarations
+    ├── env.ts            # Validated environment variables
+    └── proxy.ts          # Next.js request proxy (auth gate)
 ```
 
 ---

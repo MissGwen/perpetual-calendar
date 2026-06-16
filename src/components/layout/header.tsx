@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth';
-import { HeaderClient } from './HeaderClient';
+import { HeaderClient } from './header-client';
 
 export async function Header() {
   const session = await auth();

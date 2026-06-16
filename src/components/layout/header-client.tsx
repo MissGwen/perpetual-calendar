@@ -6,7 +6,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import Image from 'next/image';
 import type { Session } from 'next-auth';
 import { useEffect, useState, type SubmitEvent } from 'react';
-import { SignOutMenuItem } from './SignOutMenuItem';
+import { SignOutMenuItem } from './sign-out-menu-item';
 
 type AuthView = 'login' | 'register';
 

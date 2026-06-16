@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
-import { BGMPlayer } from '@/components/layout/BGMPlayer';
-import { Header } from '@/components/layout/header';
+import { Header, BGMPlayer } from '@/components/layout';
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
-import '@/styles/globals.css';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 

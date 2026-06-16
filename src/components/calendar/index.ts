@@ -1,2 +1,2 @@
-export { Calendar } from './Calendar';
-export { DateDetail } from './DateDetail';
+export { Calendar } from './calendar';
+export { DateDetail } from './date-detail';

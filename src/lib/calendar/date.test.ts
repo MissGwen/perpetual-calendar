@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatDate, getCurrentShiChen, getWangXiang } from '../dateUtils';
+import { formatDate, getCurrentShiChen, getWangXiang } from './date';
 
 describe('dateUtils', () => {
   it('returns the expected wuxing state', () => {
