@@ -1,10 +1,17 @@
 import type { Metadata } from 'next';
 import { Header, BGMPlayer } from '@/components/layout';
 import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+// 自定义中文展示字体，全局注入 --font-display 变量供所有页面复用
+const displayFont = localFont({
+  src: '../../public/font/customFont.ttf',
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://perpetual-calendar-three.vercel.app'),
@@ -53,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh" className={cn('font-sans', inter.variable)}>
+    <html lang="zh" className={cn('font-sans', inter.variable, displayFont.variable)}>
       <body className="antialiased min-h-screen bg-linear-to-br from-paper to-parchment-deep text-ink-deep">
         <Header />
         {children}

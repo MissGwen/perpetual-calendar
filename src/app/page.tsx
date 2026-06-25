@@ -1,62 +1,41 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar, DateDetail } from '@/components/calendar';
+import { Calendar, CalendarTitle, DateDetail } from '@/components/calendar';
+import { DailyMessage } from '@/components/journal';
 import { CalendarDate } from '@/types/calendar';
 import { getCalendarDate } from '@/lib/calendar/date';
-import localFont from 'next/font/local';
+import { useMounted } from '@/hooks/use-mounted';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 const DAILY_MESSAGE_STORAGE_KEY = 'perpetual-calendar-daily-message';
 
-const customFont = localFont({
-  src: '../../public/font/customFont.ttf',
-});
-
 export default function Home() {
   const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [dailyMessage, setDailyMessage] = useState('');
+  const isMounted = useMounted();
+  const [dailyMessage, setDailyMessage] = useLocalStorage(DAILY_MESSAGE_STORAGE_KEY, '');
 
-  // Initialize with today's date and set mounted state
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsMounted(true);
-      const today = new Date();
-      setSelectedDate(getCalendarDate(today, today));
-      const savedMessage = window.localStorage.getItem(DAILY_MESSAGE_STORAGE_KEY);
-      if (savedMessage) {
-        setDailyMessage(savedMessage);
-      }
-    }, 0);
-
-    return () => clearTimeout(timer);
-  }, []);
-
+  // 初始化：选中今天。日历数据依赖客户端，故延迟到挂载后计算。
   useEffect(() => {
     if (!isMounted) return;
-
-    window.localStorage.setItem(DAILY_MESSAGE_STORAGE_KEY, dailyMessage);
-  }, [dailyMessage, isMounted]);
+    const timer = setTimeout(() => {
+      const today = new Date();
+      setSelectedDate(getCalendarDate(today, today));
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [isMounted]);
 
   return (
     <main className="container mx-auto pt-16 pb-8 px-2 md:px-8 min-h-[calc(100vh-6rem)] flex items-center justify-center font-sans">
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Header / Intro for Mobile (hidden on desktop) */}
-        <div className="lg:hidden text-center text-ink-deep">
-          <h1 className={`text-4xl my-2 tracking-wide text-festive ${customFont.className}`}>
-            万年历
-          </h1>
-          <p className="text-ink-deep/80 text-sm">我们大部分时间都在害怕失败与拒绝</p>
-          <p className="text-ink-deep/80 text-sm">但后悔或许才是最该害怕的事</p>
-        </div>
+        <CalendarTitle />
 
         {/* Calendar Section */}
         <div className="lg:col-span-2 relative z-10">
           <div className="bg-white/95 backdrop-blur-xl rounded-4xl shadow-2xl shadow-festive/10 p-2 md:p-6 border border-white/40 min-h-125">
             <div className="hidden lg:block mb-8 px-4">
-              <h1
-                className={`text-4xl text-festive mb-2 flex items-center gap-3 ${customFont.className}`}
-              >
+              <h1 className="text-4xl text-festive mb-2 flex items-center gap-3 font-display">
                 <span className="w-2 h-8 bg-linear-to-b from-festive to-festive-light rounded-full inline-block"></span>
                 万年历
               </h1>
@@ -66,51 +45,14 @@ export default function Home() {
             </div>
 
             {isMounted ? (
-              <Calendar
-                onDateSelect={setSelectedDate}
-                selectedDate={selectedDate}
-                fontClassName={customFont.className}
-              />
+              <Calendar onDateSelect={setSelectedDate} selectedDate={selectedDate} />
             ) : (
               <div className="w-full h-96 flex items-center justify-center">
                 <div className="w-8 h-8 border-4 border-festive/30 border-t-festive rounded-full animate-spin"></div>
               </div>
             )}
           </div>
-          <div className="mt-4 overflow-hidden rounded-2xl border border-gold/20 bg-linear-to-br from-parchment-warm via-white to-parchment-amber p-5 md:p-6 shadow-xl shadow-festive/5">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-festive to-festive-deep text-lg font-serif text-gold-light shadow-md">
-                记
-              </span>
-              <div>
-                <h3 className={`text-xl text-festive ${customFont.className}`}>
-                  给今天的你留下一句话吧
-                </h3>
-                <p className="mt-1 text-sm text-ink-600">
-                  我先来🙋‍♀️：你的存在本身对这个世界就有意义~
-                </p>
-              </div>
-            </div>
-            <div className="mt-4 rounded-xl border border-gold/15 bg-white/80 p-2 shadow-inner shadow-festive/5">
-              <label htmlFor="daily-message" className="sr-only">
-                给今天的你留下一句话吧
-              </label>
-              <textarea
-                id="daily-message"
-                value={dailyMessage}
-                onChange={(event) => setDailyMessage(event.target.value)}
-                placeholder="例如：今天也要温柔一点，慢一点，也没关系。"
-                className="min-h-32 w-full resize-none rounded-lg border border-transparent bg-transparent px-3 py-3 text-sm leading-7 text-ink-deep outline-none transition focus:border-festive focus:ring-2 focus:ring-festive/20"
-              />
-            </div>
-          </div>
-          {/* Decorative Card */}
-          {/* <div className="mt-4 bg-linear-to-br from-festive-deep to-festive rounded-2xl p-6 text-white shadow-xl hidden lg:block border border-gold/30">
-            <h3 className="font-medium text-gold-light mb-2 opacity-90">今日箴言</h3>
-            <p className="text-lg leading-relaxed font-serif italic text-white/95">
-              &quot;光阴似箭，日月如梭。珍惜当下的每一刻。&quot;
-            </p>
-          </div> */}
+          <DailyMessage message={dailyMessage} onChange={setDailyMessage} />
         </div>
 
         {/* Detail Section */}
