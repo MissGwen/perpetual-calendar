@@ -115,7 +115,7 @@ export function HeaderClient({ session }: HeaderClientProps) {
   }
 
   return (
-    <div className="sticky top-0 z-40 font-sans selection:bg-brand selection:text-white">
+    <div className="sticky top-0 z-20 font-sans selection:bg-brand selection:text-white">
       <div className="h-1 w-full bg-linear-to-r from-brand/80 via-brand to-brand/80" />
 
       <header className="w-full border-b border-ink-100 bg-parchment/60 backdrop-blur-md">
