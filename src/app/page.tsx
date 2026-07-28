@@ -56,7 +56,7 @@ export default function Home() {
         </div>
 
         {/* Detail Section */}
-        <div className="lg:col-span-1 relative z-20 flex flex-col gap-4 lg:mt-0">
+        <div className="lg:col-span-1 relative z-10 flex flex-col gap-4 lg:mt-0">
           {isMounted && <DateDetail date={selectedDate} />}
         </div>
       </div>
