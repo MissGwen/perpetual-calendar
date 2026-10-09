@@ -8,7 +8,7 @@ import {
   isSameMonth,
   format,
 } from 'date-fns';
-import { Lunar, Solar, HolidayUtil } from 'lunar-javascript';
+import { Lunar, Solar, HolidayUtil } from 'lunar-typescript';
 import { CalendarDate, MonthData, Holiday } from '@/types/calendar';
 
 export function getWangXiang(dayWuXing: string, monthWuXing: string): string {
