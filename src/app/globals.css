@@ -205,3 +205,157 @@
     @apply font-sans;
   }
 }
+
+/*
+ * ══════════════════════════════════════════════════════════════
+ * 朱墨黄历主题（almanac）—— 追加节，不改动上方任何现有规则
+ * - 作用域：html[data-theme='almanac']；classic 主题完全不受影响；
+ * - 色板：黄纸 / 墨 / 朱 / 金，源自老黄历「黄纸黑字朱印金饰」印刷体系；
+ * - 本节规则不放入 @layer（无层样式优先级高于 utilities 层），
+ *   因此可以覆盖 body 等共享面上的 Tailwind 工具类。
+ * ══════════════════════════════════════════════════════════════
+ */
+[data-theme='almanac'] {
+  /* 品牌色板（almanac 专用，--am- 前缀） */
+  --am-paper: #f6efdb; /* 黄纸 · 页面底 */
+  --am-paper-card: #fcf8ec; /* 亮纸 · 笺面 */
+  --am-ink: #2b2115; /* 墨 */
+  --am-ink-soft: #7c6e55; /* 淡墨 */
+  --am-ink-faint: #b4a88c; /* 残墨 */
+  --am-hairline: #d8c9a3; /* 界格线 */
+  --am-gold: #a8842c; /* 金 · 线与字 */
+  --am-gold-bright: #d4af37; /* 亮金 · 点 */
+  --am-gold-light: #f3e5ab; /* 金笺 · 底纹 */
+  --am-zhu: #c8102e; /* 朱 */
+  --am-zhu-deep: #9a1327; /* 深朱 */
+  --am-zhu-wash: #f5dfd7; /* 朱晕 */
+
+  /* almanac 视图内组件一律使用上方 --am-* 变量；
+     此处仅覆盖 --radius，让 rounded-sm 等圆角档位收敛为印刷感的 2.4px */
+  --radius: 0.25rem;
+}
+
+/* 共享面覆盖：黄纸底取代 classic 的纸色渐变（无层规则 > utilities 层） */
+[data-theme='almanac'] body {
+  background-color: var(--am-paper);
+  background-image: none;
+  color: var(--am-ink);
+}
+
+[data-theme='almanac'] ::selection {
+  background: var(--am-gold-light);
+}
+
+[data-theme='almanac'] :focus-visible {
+  outline: 2px solid var(--am-gold);
+  outline-offset: 2px;
+}
+
+/* ── almanac 字体（变量由 layout.tsx 的 next/font 注入） ── */
+[data-theme='almanac'] .am-serif {
+  font-family: var(--font-am-serif), 'Noto Serif SC', 'SimSun', serif;
+}
+[data-theme='almanac'] .am-num {
+  font-family: var(--font-am-display), Georgia, serif;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 144;
+}
+[data-theme='almanac'] .am-num-hero {
+  font-weight: 375;
+  line-height: 0.78;
+  letter-spacing: -0.02em;
+}
+[data-theme='almanac'] .am-num-strong {
+  font-weight: 540;
+}
+
+/* ── 文武线框：外墨 2px + 内金 1px（整页仅外层一框） ── */
+[data-theme='almanac'] .am-frame {
+  position: relative;
+  background: var(--am-paper-card);
+  border: 2px solid var(--am-ink);
+}
+[data-theme='almanac'] .am-frame::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--am-gold);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+/* ── 印章 ── */
+[data-theme='almanac'] .am-seal {
+  font-family: var(--font-am-serif), 'Noto Serif SC', 'SimSun', serif;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-2deg);
+}
+[data-theme='almanac'] .am-seal-solid {
+  background: var(--am-zhu);
+  color: var(--am-paper-card);
+  box-shadow:
+    inset 0 0 0 1px var(--am-paper-card),
+    inset 0 0 0 2.5px var(--am-zhu);
+}
+[data-theme='almanac'] .am-seal-line {
+  background: transparent;
+  border: 1.5px solid var(--am-zhu);
+  color: var(--am-zhu);
+  box-shadow: inset 0 0 0 2px var(--am-paper-card);
+}
+
+/* ── 界栏分隔线（中点金饰） ── */
+[data-theme='almanac'] .am-rule {
+  border: none;
+  border-top: 1px solid var(--am-hairline);
+  position: relative;
+}
+[data-theme='almanac'] .am-rule::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -3.5px;
+  width: 6px;
+  height: 6px;
+  background: var(--am-gold-bright);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* ── 盖章入场动画（prefers-reduced-motion 时关闭） ── */
+@keyframes am-stamp {
+  from {
+    transform: rotate(-2deg) scale(1.3);
+    opacity: 0;
+  }
+  60% {
+    transform: rotate(-2deg) scale(0.95);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(-2deg) scale(1);
+    opacity: 1;
+  }
+}
+[data-theme='almanac'] .am-stamp {
+  animation: am-stamp 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='almanac'] .am-stamp {
+    animation: none;
+  }
+}
+
+/* ── 主题切换钮在 almanac 下的微调（金环 + 墨底不变） ── */
+[data-theme='almanac'] .theme-toggle {
+  background: var(--am-ink);
+  color: var(--am-paper-card);
+  box-shadow:
+    0 0 0 1px var(--am-gold),
+    0 0 0 4px var(--am-paper);
+}
+[data-theme='almanac'] .theme-toggle:focus-visible {
+  outline-color: var(--am-gold);
+}

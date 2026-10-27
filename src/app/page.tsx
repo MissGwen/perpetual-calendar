@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { Calendar, CalendarTitle, DateDetail } from '@/components/calendar';
 import { DailyMessage } from '@/components/journal';
+import { AlmanacHome } from '@/components/almanac';
 import { CalendarDate } from '@/types/calendar';
 import { getCalendarDate } from '@/lib/calendar/date';
 import { useMounted } from '@/hooks/use-mounted';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTheme } from '@/hooks/use-theme';
 
 const DAILY_MESSAGE_STORAGE_KEY = 'perpetual-calendar-daily-message';
 
@@ -14,6 +16,8 @@ export default function Home() {
   const [selectedDate, setSelectedDate] = useState<CalendarDate | null>(null);
   const isMounted = useMounted();
   const [dailyMessage, setDailyMessage] = useLocalStorage(DAILY_MESSAGE_STORAGE_KEY, '');
+  // 朱墨黄历主题：独立组件集渲染首页，留言与 classic 主题共用同一状态
+  const [theme] = useTheme();
 
   // 初始化：选中今天。日历数据依赖客户端，故延迟到挂载后计算。
   useEffect(() => {
@@ -24,6 +28,10 @@ export default function Home() {
     }, 0);
     return () => clearTimeout(timer);
   }, [isMounted]);
+
+  if (theme === 'almanac') {
+    return <AlmanacHome message={dailyMessage} onMessageChange={setDailyMessage} />;
+  }
 
   return (
     <main className="container mx-auto pt-16 pb-8 px-2 md:px-8 min-h-[calc(100vh-6rem)] flex items-center justify-center font-sans">
