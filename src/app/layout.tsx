@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Header, BGMPlayer } from '@/components/layout';
-import { Inter } from 'next/font/google';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { Inter, Noto_Serif_SC, Fraunces } from 'next/font/google';
 import localFont from 'next/font/local';
 import { cn } from '@/lib/utils';
+import { THEME_STORAGE_KEY } from '@/lib/theme-store';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
@@ -12,6 +14,20 @@ const displayFont = localFont({
   variable: '--font-display',
   display: 'swap',
 });
+// 朱墨黄历主题（almanac）专用字体，仅在 [data-theme='almanac'] 作用域下使用
+const notoSerifSC = Noto_Serif_SC({
+  subsets: ['latin'],
+  variable: '--font-am-serif',
+  display: 'swap',
+});
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-am-display',
+  display: 'swap',
+});
+
+// 防闪白：首屏绘制前同步 localStorage 中的主题到 html[data-theme]（与 lib/theme-store.ts 约定一致）
+const themeInitScript = `(function(){try{var t=localStorage.getItem('${THEME_STORAGE_KEY}');document.documentElement.setAttribute('data-theme',t==='almanac'?'almanac':'classic');}catch(e){document.documentElement.setAttribute('data-theme','classic');}})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://perpetual-calendar-three.vercel.app'),
@@ -60,11 +76,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh" className={cn('font-sans', inter.variable, displayFont.variable)}>
+    <html
+      lang="zh"
+      className={cn(
+        'font-sans',
+        inter.variable,
+        displayFont.variable,
+        notoSerifSC.variable,
+        fraunces.variable,
+      )}
+      suppressHydrationWarning
+    >
       <body className="antialiased min-h-screen bg-linear-to-br from-paper to-parchment-deep text-ink-deep">
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <Header />
         {children}
         <BGMPlayer />
+        <ThemeToggle />
       </body>
     </html>
   );

@@ -45,3 +45,6 @@ next-env.d.ts
 
 # prisma
 /generated/prisma
+
+# zcode session artifacts (plans etc.) - also excluded from tailwind content scan
+/.zcode/

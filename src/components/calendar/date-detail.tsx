@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useCompletion } from '@ai-sdk/react';
 import ReactMarkdown from 'react-markdown';
 import { CalendarDate } from '@/types/calendar';
@@ -317,98 +318,102 @@ export function DateDetail({ date }: DateDetailProps) {
         )}
       </div>
 
-      {isAiModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-6 backdrop-blur-sm"
-          onClick={handleCloseAiAnalysis}
-        >
+      {/* 弹窗需挂载到 body：详情列 wrapper 的 relative z-10 会创建层叠上下文，
+          否则弹窗会被 sticky header（z-20）遮挡 */}
+      {isAiModalOpen &&
+        createPortal(
           <div
-            className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-white/40 bg-white shadow-2xl shadow-black/20"
-            onClick={(event) => event.stopPropagation()}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-6 backdrop-blur-sm"
+            onClick={handleCloseAiAnalysis}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-gray-100 bg-linear-to-r from-parchment-soft to-white px-5 py-4 md:px-6">
-              <div>
-                {/* <p className="text-xs font-medium tracking-[0.18em] text-festive/70">AI ANALYSIS</p> */}
-                <h3 className="mt-1 text-lg font-semibold text-festive/70">今日 AI 分析</h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  {todayData.year}年{todayData.month + 1}月{todayData.day}日 ·{' '}
-                  {todayData.lunarMonthName}
-                  {todayData.lunarDayName}
-                </p>
+            <div
+              className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-white/40 bg-white shadow-2xl shadow-black/20"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-gray-100 bg-linear-to-r from-parchment-soft to-white px-5 py-4 md:px-6">
+                <div>
+                  {/* <p className="text-xs font-medium tracking-[0.18em] text-festive/70">AI ANALYSIS</p> */}
+                  <h3 className="mt-1 text-lg font-semibold text-festive/70">今日 AI 分析</h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {todayData.year}年{todayData.month + 1}月{todayData.day}日 ·{' '}
+                    {todayData.lunarMonthName}
+                    {todayData.lunarDayName}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCloseAiAnalysis}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:bg-gray-50 hover:text-gray-700"
+                  aria-label="关闭 AI 分析弹窗"
+                >
+                  <X className="h-4 w-4" />
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={handleCloseAiAnalysis}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition hover:bg-gray-50 hover:text-gray-700"
-                aria-label="关闭 AI 分析弹窗"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
 
-            <div className="max-h-[70vh] overflow-y-auto px-5 py-5 md:px-6">
-              <div className="rounded-2xl bg-linear-to-br from-amber-50 via-white to-rose-50 p-4 text-sm leading-7 text-gray-700">
-                {error ? (
-                  <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-4 text-red-600">
-                    AI 分析暂时不可用，请稍后再试。
-                  </div>
-                ) : (
-                  <div className="relative">
-                    {completion ? (
-                      <>
-                        <ReactMarkdown
-                          components={{
-                            h2: ({ node, ...props }) => (
-                              <h2
-                                className="text-lg font-bold text-gray-900 mt-5 mb-2"
-                                {...props}
-                              />
-                            ),
-                            h3: ({ node, ...props }) => (
-                              <h3
-                                className="text-base font-semibold text-gray-800 mt-4 mb-2"
-                                {...props}
-                              />
-                            ),
-                            p: ({ node, ...props }) => (
-                              <p className="mb-3 leading-relaxed text-gray-700" {...props} />
-                            ),
-                            ul: ({ node, ...props }) => (
-                              <ul
-                                className="list-disc pl-5 mb-3 space-y-1 text-gray-700"
-                                {...props}
-                              />
-                            ),
-                            ol: ({ node, ...props }) => (
-                              <ol
-                                className="list-decimal pl-5 mb-3 space-y-1 text-gray-700"
-                                {...props}
-                              />
-                            ),
-                            li: ({ node, ...props }) => <li className="pl-1" {...props} />,
-                            strong: ({ node, ...props }) => (
-                              <strong className="font-semibold text-gray-900" {...props} />
-                            ),
-                          }}
-                        >
-                          {completion + (isLoading ? ' ▍' : '')}
-                        </ReactMarkdown>
-                      </>
-                    ) : (
-                      <div className="flex items-center gap-3 text-gray-500">
-                        <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-festive" />
-                        <span>
-                          {isLoading ? '正在结合今日黄历为你生成分析...' : '正在准备分析内容...'}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                )}
+              <div className="max-h-[70vh] overflow-y-auto px-5 py-5 md:px-6">
+                <div className="rounded-2xl bg-linear-to-br from-amber-50 via-white to-rose-50 p-4 text-sm leading-7 text-gray-700">
+                  {error ? (
+                    <div className="rounded-2xl border border-red-100 bg-red-50 px-4 py-4 text-red-600">
+                      AI 分析暂时不可用，请稍后再试。
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      {completion ? (
+                        <>
+                          <ReactMarkdown
+                            components={{
+                              h2: ({ node, ...props }) => (
+                                <h2
+                                  className="text-lg font-bold text-gray-900 mt-5 mb-2"
+                                  {...props}
+                                />
+                              ),
+                              h3: ({ node, ...props }) => (
+                                <h3
+                                  className="text-base font-semibold text-gray-800 mt-4 mb-2"
+                                  {...props}
+                                />
+                              ),
+                              p: ({ node, ...props }) => (
+                                <p className="mb-3 leading-relaxed text-gray-700" {...props} />
+                              ),
+                              ul: ({ node, ...props }) => (
+                                <ul
+                                  className="list-disc pl-5 mb-3 space-y-1 text-gray-700"
+                                  {...props}
+                                />
+                              ),
+                              ol: ({ node, ...props }) => (
+                                <ol
+                                  className="list-decimal pl-5 mb-3 space-y-1 text-gray-700"
+                                  {...props}
+                                />
+                              ),
+                              li: ({ node, ...props }) => <li className="pl-1" {...props} />,
+                              strong: ({ node, ...props }) => (
+                                <strong className="font-semibold text-gray-900" {...props} />
+                              ),
+                            }}
+                          >
+                            {completion + (isLoading ? ' ▍' : '')}
+                          </ReactMarkdown>
+                        </>
+                      ) : (
+                        <div className="flex items-center gap-3 text-gray-500">
+                          <span className="inline-block h-2.5 w-2.5 animate-pulse rounded-full bg-festive" />
+                          <span>
+                            {isLoading ? '正在结合今日黄历为你生成分析...' : '正在准备分析内容...'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
